@@ -1,0 +1,1 @@
+add_library(board STATIC board.cpp pion.cpp)
