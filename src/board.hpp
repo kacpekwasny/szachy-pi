@@ -1,5 +1,5 @@
 #include <string>
-#include <./pion.hpp>
+#include "./pion.hpp" //zmiana z <> na "", cudzysłowia są do lokalnych bibliotek
 
 
 /* Zwraca

@@ -9,7 +9,15 @@
 Co użytkownik może wpisać?  
 1. Pole na szachownicy: "A1", "B5", "F6"...  
     Będzie to interpretowane jako wybieranie figury do ruchu albo pole docelowe ruchu w zależności od kolejności. Instancja clasy `Board` będzie pamiętała, czy obecny input będzie oznaczał wybór pionka czy pole do ruchu `Board.chooseOrMove`, to pole jest zaimplementowane jako `enum`.
-
+   
+notacja szachowa działa tak:
+   1. 
+       jeśli jest to figura to na poczatku pojawia sie sktór jej nazwy.
+       (król K wieża R skoczek N ). 
+   2. następnie jest podawane pole na którym się znajuje bierka.
+   3. po spacji jest podawane jest pole docelowe.
+    
+np. KA1 B2, e2 e3, ND3 F4
 2. Może wpisać komendę:  
    1. `reset`, będzie ona ponownie rozmieszczała pionki po szachownicy i ustawiała `chooseOrMove` na `choose`.
    2. `quit`, opuszcza program.
