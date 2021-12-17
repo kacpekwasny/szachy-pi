@@ -1,5 +1,5 @@
 
-include_directories(../lib)
+include_directories(lib)
 
 add_executable(MAIN main.cpp)
 
