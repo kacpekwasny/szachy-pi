@@ -25,6 +25,16 @@ public:
 // Board - plansza
 class Board {
     private:
+    struct Input{
+        int x;
+        int y;
+        bool isKnownStart;
+        int X;
+        int Y;
+        Pion pion;
+        char name;
+    };
+    Input lastInput;
     enum chooseOrMoveEnum {choose, move};
         chooseOrMoveEnum chooseOrMove = choose; // zawiera informacje o przeznaczeniu kolejnego inputu
         std::string infoText = "Welcome to out program!";
@@ -32,10 +42,10 @@ class Board {
 
 
 public:
-
     Board();
-    ~Board();
+    Board(std::string arg);
 
+    ~Board();
 
     // TODO
     void runInput(std::string inp);
@@ -85,4 +95,5 @@ public:
     move(figura, miejsce_na_planszy)    // 
     render()                            //
     */
+    Input tlumaczKomende(std::string basicString);
 };
