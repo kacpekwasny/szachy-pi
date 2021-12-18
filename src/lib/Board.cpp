@@ -6,13 +6,13 @@
 Board::Board(){}
 
 void Board::runInput (std::string inp){
-        if ( Board::isKomenda(inp) ){
+    if ( Board::isKomenda(inp) ){
         runCmd(inp); // wyjdż albo reset planszy?
-        //return;
+        return;
     }
-    // samego else nie trzeba bo powyżej jest 'return', więc technicznie działa tak samo,
-    // a nie trzeba zagnieżdżać
-    // else, czyli inp zawiera pole (np.: "D5"...)
+    // Poprzez return linijkę wyżej program dojdzie do tego miejsca wyłącznie,
+    // jeżeli if się nie wykona. Więc działa to praktycznie jak if/else,
+    // ale kod jest ładniejszy
     if (chooseOrMove == choose){ // wybieramy pionek
         bool ok = choosePawn(inp);
     }
