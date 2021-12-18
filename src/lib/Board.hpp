@@ -1,5 +1,6 @@
 #include "pion.hpp" //zmiana z <> na "", cudzysłowia są do lokalnych bibliotek
 #include <string>
+#include <iostream>
 
 /* Zwraca
     ok = false                              // jeżeli wystąpił błąd, np nie ma pionka na danym polu
@@ -10,15 +11,30 @@ struct Info {
     std::string info;
 };
 
+class Pole{
+public:
+    bool isZajete=false;
+    int typBierki;
+    int x;
+    int y;
+    Pole(int,int);
+
+    Pole(){}
+};
+
 // Board - plansza
 class Board {
     private:
-        enum chooseOrMoveEnum {choose, move};
+    enum chooseOrMoveEnum {choose, move};
         chooseOrMoveEnum chooseOrMove = choose; // zawiera informacje o przeznaczeniu kolejnego inputu
         std::string infoText = "Welcome to out program!";
-    public:
+        Pole ** plansza;
+
+
+public:
 
     Board();
+    ~Board();
 
 
     // TODO
@@ -47,7 +63,7 @@ class Board {
                 plansza,
                 input,
                 feedback,
-        */;
+        */
 
     
     // TODO
