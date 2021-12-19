@@ -24,8 +24,8 @@ bool Pion::ruchDozwolony(kp wiersz, kp kolumna) {
     }
 };
 
-bool ruchPionkiemDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna_) {
-    if (kolumna_ - kolumna != 0 || wiersz - wiersz_ != 1) {
+bool Pion::ruchPionkiemDozwolony(kp wiersz, kp kolumna) {
+    if (kolumna_ - this->kolumna_ != 0 || wiersz - this->wiersz_ != 1) {
         /* wykluczam mozliwosc poruszania sie po przekatnych, na boki,
          * do tylu lub o wiecej niz jedno pole do przodu */
         return false;
@@ -33,18 +33,18 @@ bool ruchPionkiemDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna_) {
     return true;
 }
 
-bool ruchWiezaDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna_) {
-    if (kolumna_ - kolumna != 0 && wiersz_ - wiersz != 0) {
+bool Pion::ruchWiezaDozwolony(kp wiersz, kp kolumna) {
+    if (this->kolumna_ - kolumna != 0 && this->wiersz_ - wiersz != 0) {
         /* wykluczam mozliwosc poruszania sie po przekatnych */
         return false;
     }
     return true;
 }
 
-bool ruchSkoczkaDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna_) {
-    if (abs(kolumna_ - kolumna) == 3 && abs(wiersz_ - wiersz) == 1) {
+bool Pion::ruchSkoczkiemDozwolony(kp wiersz, kp kolumna) {
+    if (abs(this->kolumna_ - kolumna) == 3 && abs(this->wiersz_ - wiersz) == 1) {
         return true;
-    } else if (abs(wiersz_ - wiersz) == 3 && abs(kolumna_ - kolumna) == 1) {
+    } else if (abs(this->wiersz_ - wiersz) == 3 && abs(this->kolumna_ - kolumna) == 1) {
         return true;
     }
     return false;
