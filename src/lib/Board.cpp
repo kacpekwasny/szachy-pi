@@ -69,11 +69,17 @@ Board::~Board() {
 }
 bool Board::isKomenda(std::string s) {
     std::cmatch k;
+    //sprawdzanie czy rozmiar jest odpowiedni
+    //każda komenda wzorcowa* powinna zawierać 4 lub 5 znaków ciagiem
     if (s.size() > 5 || s.size() < 4) return false;
+    //regex sprwawdzający czy dana komenda jest poprawna
+    //litery moga być duże lub małe
     if (std::regex_match(s.begin(), s.end(),
-                         std::regex("(^[KQBNkqbn][a-gA-G][[1-8][a-gA-G][[1-8]|["
-                                    "a-gA-G][[1-8][a-gA-G][[1-8])")))
+                         std::regex(
+                                 "(^[KQBNkqbn][a-gA-G][[1-8][a-gA-G][[1-8]|["
+                                    "a-gA-G][[1-8][a-gA-G][[1-8])"))) {
         return true;
+    }
     return false;
 }
 void Board::runCmd(std::string) {}

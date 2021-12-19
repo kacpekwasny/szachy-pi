@@ -3,4 +3,4 @@
 //
 #include "pion.hpp"
 
-bool Pion::move(std::string pole) { return false; }
+bool Pion::move(kp x,kp y ) { return false; }

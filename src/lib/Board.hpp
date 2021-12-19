@@ -12,7 +12,9 @@ struct Info {
     bool ok;
     std::string info;
 };
-
+/**
+ * jest to pojedyńcze pole na planszt
+ */
 class Pole {
    public:
     bool isZajete = false;
@@ -27,6 +29,8 @@ class Pole {
 // Board - plansza
 class Board {
    private:
+    //struktura w która sa przekształcane komendy wchodzące do programu
+    // jest ona stworzenia w celu uproszczenia wprowadzonych danych danych
     struct Input {
         int x;
         int y;
@@ -56,7 +60,7 @@ class Board {
         albo komenda typu "reset"
     */
 
-    // TODO
+
     bool isKomenda(
         std::string);  // jeżeli jest komendą, to zwraca true. Patrz docs.md
 
@@ -90,10 +94,15 @@ class Board {
 
     */
 
+    Input tlumaczKomende(std::string basicString);
+    /*
+     * bierze komende nieprzetworzonego wejścia
+     * zwraca przetworzone dane wejsciowe w stutkurze Inlut
+     */
+
     /*
         figures                             // figury
         move(figura, miejsce_na_planszy)    //
         render()                            //
     */
-    Input tlumaczKomende(std::string basicString);
 };
