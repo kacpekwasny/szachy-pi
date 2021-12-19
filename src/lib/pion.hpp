@@ -40,6 +40,7 @@ class Pion {
     void ustawKoordynatyPionka(kp wiersz, kp kolumna);
     bool ruchDozwolony(kp wiersz, kp kolumna);
 
+    // DONE 2
     // R-Krolowa
     // G-Goniec
     // S-Skoczek
