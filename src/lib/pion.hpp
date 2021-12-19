@@ -37,5 +37,5 @@ class Pion {
    public:
     void ustawKoordynatyPionka(kp wiersz, kp kolumna);
 
-    bool ruchLegalny(kp wiersz, kp kolumna);
+    bool ruchDozwolony(kp wiersz, kp kolumna);
 };
