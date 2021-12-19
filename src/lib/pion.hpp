@@ -1,6 +1,6 @@
+#include <cmath>
 #include <string>
 #include <vector>
-#include <cmath>
 
 #include "def_typow.hpp"
 
@@ -22,17 +22,17 @@ class Pion {
 
 
     */
-    //DONE
-    bool ruchPionkiemDozwolony(kp wiersz, kp kolumna, kp wiersz_ , kp kolumna_);
+    // DONE
+    bool ruchPionkiemDozwolony(kp wiersz, kp kolumna);
 
     // TODO
     bool ruchKrolemDozwolony(kp wiersz, kp kolumna);
 
-    //DONE
-    bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna);
+    // DONE
+    bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna);
 
-    //DONE
-    bool ruchWiezaDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna_);
+    // DONE
+    bool ruchWiezaDozwolony(kp wiersz, kp kolumna);
 
    public:
     void ustawKoordynatyPionka(kp wiersz, kp kolumna);
