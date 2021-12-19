@@ -25,4 +25,5 @@ class Interfejs {
    public:
     // input, rysowanie, output
     void glownaPetla();
+    void render();
 };

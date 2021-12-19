@@ -13,3 +13,8 @@ niepoprawny typ do tego przeznaczenia to wystarczy, że tutaj zmienie.
 // pełna informacja identyfikująca pole będzie zawierała dwie zmienne `bc`
 // jedną do X'ów i jedną do Y'ów
 typedef unsigned int kp;
+
+/**
+ * typy pionków przeniesione tam gdzie powinny być typy
+ */
+enum typyPionkaEnum { PIONEK, SKOCZEK, WIEZA, GONIEC, KROL, KROLOWA };
