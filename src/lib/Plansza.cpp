@@ -1,9 +1,9 @@
 //
 // Created by jarek on 17.12.2021.
 //
-#include <regex>
-
 #include "Plansza.hpp"
+
+#include <regex>
 
 Pole::Pole(int x, int y) {
     this->x = x;
@@ -11,9 +11,8 @@ Pole::Pole(int x, int y) {
 }
 
 void Plansza::render() {
-    static const std::string bierki[] = {
-        "\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
-        "\u265a", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
+    static const std::string bierki[] = {"\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
+                                         "\u265a", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
     for (std::string s : bierki) {
         std::cout << s;
     }
@@ -22,9 +21,7 @@ void Plansza::render() {
     for (int i = 0; i < 8; i++) {
         std::cout << "\t" << i + 1 << "\t\t";
         for (int j = 0; j < 8; j++) {
-            std::cout << (plansza[i][j].isZajete
-                              ? bierki[plansza[i][j].typBierki] + "\t"
-                              : ".\t");
+            std::cout << (plansza[i][j].isZajete ? bierki[plansza[i][j].typBierki] + "\t" : ".\t");
         }
         std::cout << "\t" << i + 1;
         std::cout << std::endl;
@@ -33,34 +30,20 @@ void Plansza::render() {
               << "\t\t\tA \tB \tC \tD \tE \tF \tG \tH\n";
 }
 
-Plansza::Plansza() {
-    plansza = new Pole *[8];
-    for (int i = 0; i < 8; i++) {
-        plansza[i] = new Pole[8];
-        for (int j = 0; j < 8; j++) {
-            plansza[i][j] = Pole(i + 1, j + 1);
-        }
-    }
-}
+Plansza::Plansza(kp iloscWierszy, kp iloscKolumn) {
+    // inicjalizacja pol (planszy de fakto)
+    for (kp w = 0; w < iloscWierszy; w++) {
+        std::vector<Pole *> wiersz;
 
-Plansza::Plansza(std::string arg) {
-    plansza = new Pole *[8];
-    for (int i = 0; i < 8; i++) {
-        plansza[i] = new Pole[8];
-        for (int j = 0; j < 8; j++) {
-            plansza[i][j] = Pole(i + 1, j + 1);
+        for (kp k = 0; k < iloscKolumn; k++) {
+            Pole *p;
+            p->isZajete = false;
+            p->kolumna = k;
+            p->wiersz = w;
+            wiersz.push_back(p);
         }
+        pola.push_back(wiersz);
     }
-    if (arg != "test") return;
-    Pole *p = &plansza[3][3];
-    p->isZajete = true;
-    p->typBierki = 9;
-    p = &plansza[6][5];
-    p->isZajete = true;
-    p->typBierki = 10;
-    p = &plansza[6][2];
-    p->isZajete = true;
-    p->typBierki = 11;
 }
 
 Plansza::~Plansza() {

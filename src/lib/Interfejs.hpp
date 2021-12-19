@@ -16,17 +16,14 @@ class Interfejs {
     Plansza* plansza;
 
     std::string polaZPionkami() {
+        std::string pola = "";
         for (auto p : plansza->pionki) {
         }
     }
 
    public:
-    void uruchom() {
-        for (;;) {
-            std::cout << "Wybierz pionek: "
-                      << "\n";  //
-            std::string inp;
-            std::cin >> inp;
-        }
-    }
+    // input, rysowanie
+    void glownaPetla();
+
+    void setText(std::string);
 };

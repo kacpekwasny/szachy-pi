@@ -3,16 +3,17 @@
 
 #include "def_typow.hpp"
 
+enum typyPionkaEnum { PIONEK, KROL, SKOCZEK, WIEZA };
+
 class Pion {
    private:
-    enum typyPionkaEnum { pionek, krol, skoczek, wieza };
-    typyPionkaEnum typPionka = pionek;
+    typyPionkaEnum typPionka;
 
     // koordynaty pionka, oczywiscie plansza przechowuje go w nested array
     // w odpowiedniej komorce, ale w celach praktycznych, Pion rowniez bedzie ta
     // informacje przechowywal
-    kp x_ = 0;
-    kp y_ = 0;
+    kp wiersz_ = 0;
+    kp kolumna_ = 0;
 
     /*
         Jeden komentarz do wszystkich poniższych funkcji:
@@ -36,5 +37,5 @@ class Pion {
    public:
     void ustawKoordynatyPionka(kp wiersz, kp kolumna);
 
-    bool move(kp wiersz, kp kolumna);
+    bool ruchLegalny(kp wiersz, kp kolumna);
 };
