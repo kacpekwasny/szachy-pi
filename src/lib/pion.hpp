@@ -1,3 +1,4 @@
+#include <cmath>
 #include <string>
 #include <vector>
 
@@ -22,16 +23,16 @@ class Pion {
 
 
     */
-    // TODO
+    // DONE
     bool ruchPionkiemDozwolony(kp wiersz, kp kolumna);
 
     // TODO
     bool ruchKrolemDozwolony(kp wiersz, kp kolumna);
 
-    // TODO
+    // DONE
     bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna);
 
-    // TODO
+    // DONE
     bool ruchWiezaDozwolony(kp wiersz, kp kolumna);
 
    public:
