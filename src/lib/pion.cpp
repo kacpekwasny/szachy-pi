@@ -53,6 +53,22 @@ bool Pion::ruchSkoczkiemDozwolony(kp wiersz, kp kolumna) {
     return false;
 }
 
+bool Pion::ruchGoncaDozwolony(kp wiersz, kp kolumna){
+    if(abs(this->kolumna_ - kolumna) == abs(this->wiersz_ - wiersz){
+        return true;
+    }
+    return false;
+}
+
+bool Pion::ruchKrolowejDozwolony(kp wiersz, kp kolumna){
+    if(abs(this->kolumna_ - kolumna) == abs(this->wiersz_ - wiersz){
+        return true;
+    } else if(abs(this->kolumna_ - kolumna) == 0 || abs(this->wiersz_ - wiersz) == 0){
+        return true;
+    }
+    return false;
+}
+
 void Pion::ustawKoordynatyPionka(kp wiersz, kp kolumna) {
     this->wiersz_ = wiersz;
     this->kolumna_ = kolumna;
