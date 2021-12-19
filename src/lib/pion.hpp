@@ -23,16 +23,16 @@ class Pion {
 
     */
     //DONE
-    bool ruchPionkiemDozwolony(kp wiersz, kp kolumna, kp wiersz_ , kp kolumna_);
+    bool ruchPionkiemDozwolony(kp wiersz, kp kolumna);
 
     // TODO
     bool ruchKrolemDozwolony(kp wiersz, kp kolumna);
 
     //DONE
-    bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna);
+    bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna)
 
     //DONE
-    bool ruchWiezaDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna_);
+    bool ruchWiezaDozwolony(kp wiersz, kp kolumna);
 
    public:
     void ustawKoordynatyPionka(kp wiersz, kp kolumna);
