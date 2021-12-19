@@ -6,16 +6,20 @@
 #include <string>
 #include <vector>
 
-#include ""
 #include "Plansza.hpp"
 #include "Pole.hpp"
+
+enum ruchErrorEnum { OK, POLE_PIONKA_PUSTE, POLE_DOCELOWE_ZAJETE, RUCH_NIEDOZWOLONY_DLA_PIONKA };
 
 class Gra {
    private:
     enum chooseOrMoveEnum { choose, move };
     chooseOrMoveEnum chooseOrMove = choose;  // zawiera informacje o przeznaczeniu kolejnego inputu
 
-    Plansza* plansza;
+    // config gry
+    zbijanie
+
+        Plansza* plansza;
 
     // funkcja majaca byc wykonywana po kadzym ruchu, na razie jedyna funkcjonalnosc to zmiana pionka na
     void poWykonanymRuchu();
@@ -25,7 +29,7 @@ class Gra {
     // ilosc pionkow
     Gra();
 
-    // zwroc plansze w formie "getPlansza"
+    // zwroc plansze
     std::vector<std::vector<Pole*>> wezPlansze();
 
     // TODO
@@ -33,11 +37,13 @@ class Gra {
 
     // TODO
     // rozmiesc pionki przypadkowo
+    // argument to np.: {'R', 'R', 'G', 'P', 'P', 'P', 'P', 'S'}
     void zapelnijPlanszeLosowo(std::vector<char>);
 
     // TODO
-    //
+    // czyli
     void zapelnijPlanszeRegulaminowo();
 
-    std::string ruch();
+    // TODO
+    ruchErrorEnum ruch(kp wierszPionka, kp kolumnaPionka, kp wierszDocelowy, kp kolumnaDocelowa);
 };
