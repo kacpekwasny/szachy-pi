@@ -6,7 +6,7 @@
 #include <cmath>
 #include "def_typow.hpp"
 
-bool Pion::move(std::string pole) { return false; }
+bool Pion::move(kp wiersz, kp kolumna) { return false; }
 
 bool Pion::ruchPionkiemDozwolony(kp wiersz, kp kolumna){
 	if(kolumna_ - this-> kolumna != 0 || wiersz - this-> wiersz_ != 1){
