@@ -8,7 +8,7 @@
 
 Co użytkownik może wpisać?  
 1. Pole na szachownicy: "A1", "B5", "F6"...  
-    Będzie to interpretowane jako wybieranie figury do ruchu albo pole docelowe ruchu w zależności od kolejności. Instancja clasy `Board` będzie pamiętała, czy obecny input będzie oznaczał wybór pionka czy pole do ruchu `Board.chooseOrMove`, to pole jest zaimplementowane jako `enum`.
+    Będzie to interpretowane jako wybieranie figury do ruchu albo pole docelowe ruchu w zależności od kolejności. Instancja clasy `Plansza` będzie pamiętała, czy obecny input będzie oznaczał wybór pionka czy pole do ruchu `Plansza.chooseOrMove`, to pole jest zaimplementowane jako `enum`.
    
 notacja szachowa działa tak:
    1. 
@@ -33,7 +33,7 @@ Musi być miejsce na pisanie, miejsce na wyświetlanie planszy, i miejsce na wy�
 ## Sterowanie pionkami
 Fajnie by było zrobić sterowanie pionkami tak, żeby się skalowało. Przykład:
 ```cpp
-class Board {
+class Plansza {
     Pionek p;
     Krol k;
     Skoczek s;
@@ -46,7 +46,7 @@ class Board {
 ```
 jeżeli zrobimy jak powyżej, to np.: funkcja `move(pole)`, będzie wyglądała tak:
 ```
-class Board {
+class Plansza {
     ...
     bool move(std::string pole) {
         switch (currentPawn) {
@@ -71,7 +71,7 @@ class Board {
 ### Lepiej zrobić.. Teraz mnie natchęło!
 Zróbmy wszystkie pionki jako jedną klasę. Potem każda instancja pionka będzie miała pole enum, które będzie determinowało czy jest pionkiem, królem, skoczkiem, czy wieżą.
 Będzie jedna funkcja `Pion.move(pole)`, która będzie sprawdzała inaczej w zależności od tego czy instancja jest P, K, S czy W.
-Zobaczcie `board.hpp`.
+Zobaczcie `Plansza.hpp`.
 
 
 

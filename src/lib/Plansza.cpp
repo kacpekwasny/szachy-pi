@@ -1,16 +1,16 @@
 //
 // Created by jarek on 17.12.2021.
 //
-#include "board.hpp"
-
 #include <regex>
+
+#include "Plansza.hpp"
 
 Pole::Pole(int x, int y) {
     this->x = x;
     this->y = y;
 }
 
-void Board::render() {
+void Plansza::render() {
     static const std::string bierki[] = {
         "\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
         "\u265a", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
@@ -33,7 +33,7 @@ void Board::render() {
               << "\t\t\tA \tB \tC \tD \tE \tF \tG \tH\n";
 }
 
-Board::Board() {
+Plansza::Plansza() {
     plansza = new Pole *[8];
     for (int i = 0; i < 8; i++) {
         plansza[i] = new Pole[8];
@@ -43,7 +43,7 @@ Board::Board() {
     }
 }
 
-Board::Board(std::string arg) {
+Plansza::Plansza(std::string arg) {
     plansza = new Pole *[8];
     for (int i = 0; i < 8; i++) {
         plansza[i] = new Pole[8];
@@ -63,13 +63,13 @@ Board::Board(std::string arg) {
     p->typBierki = 11;
 }
 
-Board::~Board() {
+Plansza::~Plansza() {
     for (int i = 0; i < 8; i++) {
         delete plansza[i];
     }
     delete plansza;
 }
-bool Board::isKomenda(std::string s) {
+bool Plansza::isKomenda(std::string s) {
     std::cmatch k;
     if (s.size() > 5 || s.size() < 4) return false;
     if (std::regex_match(s.begin(), s.end(),
@@ -78,13 +78,13 @@ bool Board::isKomenda(std::string s) {
         return true;
     return false;
 }
-void Board::runCmd(std::string) {}
-void Board::runInput(std::string inp) {
+void Plansza::runCmd(std::string) {}
+void Plansza::runInput(std::string inp) {
     // komendy mają strukture Kd3de, e2e3
     // pola mogą mieć abcdefg
     // bierki moga mieć KQB
-    if (Board::isKomenda(inp)) {
-        Board::tlumaczKomende(inp);
+    if (Plansza::isKomenda(inp)) {
+        Plansza::tlumaczKomende(inp);
         runCmd(inp);  // wyjdż albo reset planszy?
         return;
     }
@@ -96,9 +96,9 @@ void Board::runInput(std::string inp) {
     }
 }
 
-bool Board::choosePawn(std::string inp) { return true; }
+bool Plansza::choosePawn(std::string inp) { return true; }
 
-Board::Input Board::tlumaczKomende(std::string inp) {
+Plansza::Input Plansza::tlumaczKomende(std::string inp) {
     Input i;
     if (inp.size() == 4) {
         i.x = inp[0] - 'a';

@@ -1,1 +1,1 @@
-add_library(board STATIC board.cpp pion.cpp)
+add_library(Plansza STATIC Plansza.cpp pion.cpp)
