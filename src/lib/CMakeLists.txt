@@ -1,0 +1,1 @@
+add_library(Plansza STATIC Plansza.cpp pion.cpp)
