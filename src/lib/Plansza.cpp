@@ -25,6 +25,9 @@ Plansza::Plansza(kp iloscWierszy, kp iloscKolumn) {
         pola.push_back(wiersz);
     }
 }
+Plansza::Plansza() :Plansza(8,8) {
+
+}
 
 Plansza::~Plansza() {
     for (int i = 0; i < 8; i++) {

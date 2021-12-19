@@ -11,12 +11,14 @@ class Plansza {
    private:
     // pola[wiersze][kolumny]
     std::vector<std::vector<Pole *>> pola;
+// inicjalizacja pol planszy
+    Plansza(kp iloscWierszy, kp iloscKolumn);
 
-   public:
+public:
     std::vector<Pion *> pionki;
 
-    // inicjalizacja pol planszy
-    Plansza(kp iloscWierszy, kp iloscKolumn);
+    // plansza zawsze ma tyle samo pull
+    Plansza();
 
     void przypadkoweRozmieszczeniePionow() {}
 

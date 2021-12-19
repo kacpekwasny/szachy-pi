@@ -77,7 +77,7 @@ void Pion::ustawKoordynatyPionka(kp wiersz, kp kolumna) {
 char Pion::wezLitere() {
     switch (this->typPionka) {
         case KROLOWA:
-            return 'R';
+            return 'H';
         case GONIEC:
             return 'G';
         case SKOCZEK:
@@ -97,7 +97,7 @@ char Pion::wezLitere() {
 bool Pion::ustawTypPionkaPoLiterze(char l) {
     const char toUpper = 32;
     switch (l + toUpper) {
-        case 'R':
+        case 'H':
             this->typPionka = KROLOWA;
             return true;
         case 'G':
