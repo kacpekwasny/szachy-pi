@@ -13,7 +13,8 @@ class Interfejs {
     enum chooseOrMoveEnum { choose, move };
     chooseOrMoveEnum chooseOrMove = choose;  // zawiera informacje o przeznaczeniu kolejnego inputu
 
-    Plansza* plansza;
+    //
+    void setText(std::string);
 
     std::string polaZPionkami() {
         std::string pola = "";
@@ -22,8 +23,6 @@ class Interfejs {
     }
 
    public:
-    // input, rysowanie
+    // input, rysowanie, output
     void glownaPetla();
-
-    void setText(std::string);
 };

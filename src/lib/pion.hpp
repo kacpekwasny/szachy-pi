@@ -4,7 +4,7 @@
 
 #include "def_typow.hpp"
 
-enum typyPionkaEnum { PIONEK, KROL, SKOCZEK, WIEZA };
+enum typyPionkaEnum { PIONEK, SKOCZEK, WIEZA, GONIEC, KROL, KROLOWA };
 
 class Pion {
    private:
@@ -23,20 +23,29 @@ class Pion {
 
 
     */
-    // DONE
+    // DONE 4
     bool ruchPionkiemDozwolony(kp wiersz, kp kolumna);
-
-    // TODO
     bool ruchKrolemDozwolony(kp wiersz, kp kolumna);
-
-    // DONE
     bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna);
-
-    // DONE
     bool ruchWiezaDozwolony(kp wiersz, kp kolumna);
 
-   public:
-    void ustawKoordynatyPionka(kp wiersz, kp kolumna);
+    // TODO
+    bool ruchKrolowaDozwolony(kp wiersz, kp kolumna);
 
+    // TODO
+    bool ruchGoncemDozwolony(kp wiersz, kp kolumna);
+
+   public:
+    // DONE 2
+    void ustawKoordynatyPionka(kp wiersz, kp kolumna);
     bool ruchDozwolony(kp wiersz, kp kolumna);
+
+    // R-Krolowa
+    // G-Goniec
+    // S-Skoczek
+    // W-Wieza
+    // K-Krol
+    // P-Pionek
+    char wezLitere();
+    bool ustawTypPionkaPoLiterze(char);
 };

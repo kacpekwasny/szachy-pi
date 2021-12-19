@@ -18,6 +18,9 @@ bool Pion::ruchDozwolony(kp wiersz, kp kolumna) {
             return this->ruchKrolemDozwolony(wiersz, kolumna);
         case WIEZA:
             return this->ruchWiezaDozwolony(wiersz, kolumna);
+            // TODO
+            // KROLOWA
+            // GONIEC
         default:
             // nie powinno dojsc do tego poniewaz, typ pionka nie moze miec innej wartosci niz te wymienione powyzej
             break;
@@ -48,4 +51,55 @@ bool Pion::ruchSkoczkiemDozwolony(kp wiersz, kp kolumna) {
         return true;
     }
     return false;
+}
+
+void Pion::ustawKoordynatyPionka(kp wiersz, kp kolumna) {
+    this->wiersz_ = wiersz;
+    this->kolumna_ = kolumna;
+}
+
+char Pion::wezLitere() {
+    switch (this->typPionka) {
+        case KROLOWA:
+            return 'R';
+        case GONIEC:
+            return 'G';
+        case SKOCZEK:
+            return 'S';
+        case WIEZA:
+            return 'W';
+        case KROL:
+            return 'K';
+        case PIONEK:
+            return 'P';
+        default:
+            // nie powinno dojsc do tego poniewaz, typ pionka nie moze miec innej wartosci niz te wymienione powyzej
+            break;
+    }
+}
+
+bool Pion::ustawTypPionkaPoLiterze(char l) {
+    const char toUpper = 32;
+    switch (l + toUpper) {
+        case 'R':
+            this->typPionka = KROLOWA;
+            return true;
+        case 'G':
+            this->typPionka = GONIEC;
+            return true;
+        case 'S':
+            this->typPionka = SKOCZEK;
+            return true;
+        case 'W':
+            this->typPionka = WIEZA;
+            return true;
+        case 'K':
+            this->typPionka = KROL;
+            return true;
+        case 'P':
+            this->typPionka = PIONEK;
+            return true;
+        default:
+            return false;
+    }
 }
