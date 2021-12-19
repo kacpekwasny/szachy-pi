@@ -32,6 +32,7 @@ void Board::render() {
     std::cout << "\n"
               << "\t\t\tA \tB \tC \tD \tE \tF \tG \tH\n";
 }
+
 Board::Board() {
     plansza = new Pole *[8];
     for (int i = 0; i < 8; i++) {
@@ -41,6 +42,7 @@ Board::Board() {
         }
     }
 }
+
 Board::Board(std::string arg) {
     plansza = new Pole *[8];
     for (int i = 0; i < 8; i++) {
