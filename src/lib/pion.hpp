@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <cmath>
 
 #include "def_typow.hpp"
 
@@ -21,17 +22,34 @@ class Pion {
 
 
     */
-    // TODO
-    bool ruchPionkiemDozwolony(kp wiersz, kp kolumna);
+    bool ruchPionkiemDozwolony(kp wiersz, kp kolumna, kp wiersz_ , kp kolumna_){
+	   if(kolumna_ - kolumna != 0 || wiersz - wiersz_ != 1){
+		/* wykluczam mozliwosc poruszania sie po przekatnych, na boki,
+		 * do tylu lub o wiecej niz jedno pole do przodu */
+		return false;
+	}
+	return true;
+}
 
     // TODO
     bool ruchKrolemDozwolony(kp wiersz, kp kolumna);
 
-    // TODO
-    bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna);
+    bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna){
+	    if(abs(kolumna_ - kolumna) == 3 && abs(wiersz_ - wiersz) == 1){
+		return true;
+	} else if(abs(wiersz_ - wiersz) == 3 && abs(kolumna_ - kolumna) == 1){
+		return true;
+	}
+	return false;
+}
 
-    // TODO
-    bool ruchWiezaDozwolony(kp wiersz, kp kolumna);
+    bool ruchWiezaDozwolony(kp wiersz, kp kolumna, kp wiersz_, kp kolumna_){
+	    if(kolumna_ - kolumna != 0 && wiersz_ - wiersz != 0){
+		/* wykluczam mozliwosc poruszania sie po przekatnych */
+		return false;
+	}
+	return true;
+}
 
    public:
     void ustawKoordynatyPionka(kp wiersz, kp kolumna);
