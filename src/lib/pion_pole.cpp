@@ -12,9 +12,16 @@
 Pole::Pole(kp wiersz, kp kolumna, bool jestBiale) {
     this->wiersz_ = wiersz;
     this->kolumna_ = kolumna;
-    this->isZajete = false;
+    this->jestZajete = false;
     this->jestBiale = jestBiale;
 }
+
+Pion::Pion(bool jestBialy, typyPionkaEnum typ) {
+    this->jestBialy = jestBialy;
+    this->typPionka = typ;
+}
+
+bool Pion::ustawZbity(bool zbity) { this->zbity = zbity; }
 
 bool Pion::ruchDozwolony(kp wiersz, kp kolumna) {
     switch (this->typPionka) {
@@ -79,11 +86,6 @@ bool Pion::ruchKrolowaDozwolony(kp wiersz, kp kolumna) {
     return false;
 }
 
-void Pion::ustawKoordynatyPionka(kp wiersz, kp kolumna) {
-    this->pole->wiersz_ = wiersz;
-    this->pole->kolumna_ = kolumna;
-}
-
 char Pion::wezLitere() {
     switch (this->typPionka) {
         case KROLOWA:
@@ -129,4 +131,10 @@ bool Pion::ustawTypPionkaPoLiterze(char l) {
         default:
             return false;
     }
+}
+
+void Pion::ustawPionekNaPolu(Pole* p) {
+    this->pole = p;
+    p->pionek = this;
+    this->zbity = false;
 }
