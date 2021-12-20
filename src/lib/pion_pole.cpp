@@ -1,12 +1,20 @@
 //
 // Created by jarek on 17.12.2021.
 //
-#include "pion.hpp"
+#include "pion_pole.hpp"
 
 #include <cmath>
 #include <iostream>
 
 #include "def_typow.hpp"
+
+// Pole przesuniete do tego pliku bo byla petla include
+Pole::Pole(kp wiersz, kp kolumna, bool jestBiale) {
+    this->wiersz_ = wiersz;
+    this->kolumna_ = kolumna;
+    this->isZajete = false;
+    this->jestBiale = jestBiale;
+}
 
 bool Pion::ruchDozwolony(kp wiersz, kp kolumna) {
     switch (this->typPionka) {
@@ -18,9 +26,11 @@ bool Pion::ruchDozwolony(kp wiersz, kp kolumna) {
             return this->ruchKrolemDozwolony(wiersz, kolumna);
         case WIEZA:
             return this->ruchWiezaDozwolony(wiersz, kolumna);
-            // TODO
-            // KROLOWA
-            // GONIEC
+        case GONIEC:
+            return this->ruchGoncemDozwolony(wiersz, kolumna);
+        case KROLOWA:
+            return this->ruchKrolowaDozwolony(wiersz, kolumna);
+
         default:
             // nie powinno dojsc do tego poniewaz, typ pionka nie moze miec innej wartosci niz te wymienione powyzej
             break;
@@ -28,7 +38,7 @@ bool Pion::ruchDozwolony(kp wiersz, kp kolumna) {
 };
 
 bool Pion::ruchPionkiemDozwolony(kp wiersz, kp kolumna) {
-    if (kolumna_ - this->kolumna_ != 0 || wiersz - this->wiersz_ != 1) {
+    if (kolumna_ - this->pole->kolumna_ != 0 || wiersz - this->pole->wiersz_ != 1) {
         /* wykluczam mozliwosc poruszania sie po przekatnych, na boki,
          * do tylu lub o wiecej niz jedno pole do przodu */
         return false;
@@ -37,7 +47,7 @@ bool Pion::ruchPionkiemDozwolony(kp wiersz, kp kolumna) {
 }
 
 bool Pion::ruchWiezaDozwolony(kp wiersz, kp kolumna) {
-    if (this->kolumna_ - kolumna != 0 && this->wiersz_ - wiersz != 0) {
+    if (this->pole->kolumna_ - kolumna != 0 && this->pole->wiersz_ - wiersz != 0) {
         /* wykluczam mozliwosc poruszania sie po przekatnych */
         return false;
     }
@@ -45,33 +55,33 @@ bool Pion::ruchWiezaDozwolony(kp wiersz, kp kolumna) {
 }
 
 bool Pion::ruchSkoczkiemDozwolony(kp wiersz, kp kolumna) {
-    if (abs(this->kolumna_ - kolumna) == 3 && abs(this->wiersz_ - wiersz) == 1) {
+    if (abs(this->pole->kolumna_ - kolumna) == 3 && abs(this->pole->wiersz_ - wiersz) == 1) {
         return true;
-    } else if (abs(this->wiersz_ - wiersz) == 3 && abs(this->kolumna_ - kolumna) == 1) {
-        return true;
-    }
-    return false;
-}
-
-bool Pion::ruchGoncaDozwolony(kp wiersz, kp kolumna){
-    if(abs(this->kolumna_ - kolumna) == abs(this->wiersz_ - wiersz){
+    } else if (abs(this->pole->wiersz_ - wiersz) == 3 && abs(this->pole->kolumna_ - kolumna) == 1) {
         return true;
     }
     return false;
 }
 
-bool Pion::ruchKrolowejDozwolony(kp wiersz, kp kolumna){
-    if(abs(this->kolumna_ - kolumna) == abs(this->wiersz_ - wiersz){
+bool Pion::ruchGoncemDozwolony(kp wiersz, kp kolumna) {
+    if (abs(this->pole->kolumna_ - kolumna) == abs(this->pole->wiersz_ - wiersz)) {
         return true;
-    } else if(abs(this->kolumna_ - kolumna) == 0 || abs(this->wiersz_ - wiersz) == 0){
+    }
+    return false;
+}
+
+bool Pion::ruchKrolowaDozwolony(kp wiersz, kp kolumna) {
+    if (abs(this->pole->kolumna_ - kolumna) == abs(this->pole->wiersz_ - wiersz)) {
+        return true;
+    } else if (abs(this->pole->kolumna_ - kolumna) == 0 || abs(this->pole->wiersz_ - wiersz) == 0) {
         return true;
     }
     return false;
 }
 
 void Pion::ustawKoordynatyPionka(kp wiersz, kp kolumna) {
-    this->wiersz_ = wiersz;
-    this->kolumna_ = kolumna;
+    this->pole->wiersz_ = wiersz;
+    this->pole->kolumna_ = kolumna;
 }
 
 char Pion::wezLitere() {
@@ -96,7 +106,8 @@ char Pion::wezLitere() {
 
 bool Pion::ustawTypPionkaPoLiterze(char l) {
     const char toUpper = 32;
-    switch (l + toUpper) {
+    // convert char to upper
+    switch (l > 60 ? l - toUpper : l) {
         case 'H':
             this->typPionka = KROLOWA;
             return true;

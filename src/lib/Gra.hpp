@@ -9,7 +9,7 @@
 #include "Plansza.hpp"
 #include "Pole.hpp"
 
-enum ruchErrorEnum { OK, POLE_PIONKA_PUSTE, POLE_DOCELOWE_ZAJETE, RUCH_NIEDOZWOLONY_DLA_PIONKA };
+enum ruchErrorEnum { OK, POLE_PIONKA_PUSTE, POLE_DOCELOWE_ZAJETE, RUCH_NIEDOZWOLONY_DLA_PIONKA, WYBIERZ_NOWY_PIONEK };
 
 class Gra {
    private:
@@ -17,9 +17,10 @@ class Gra {
     chooseOrMoveEnum chooseOrMove = choose;  // zawiera informacje o przeznaczeniu kolejnego inputu
 
     // config gry
-    zbijanie
+    bool bialeICzarne = false;
+    bool zbijanieWlaczone = false;
 
-        Plansza* plansza;
+    Plansza* plansza;
 
     // funkcja majaca byc wykonywana po kadzym ruchu, na razie jedyna funkcjonalnosc to zmiana pionka na
     void poWykonanymRuchu();
@@ -29,11 +30,14 @@ class Gra {
     // ilosc pionkow
     Gra();
 
-    // zwroc plansze
-    std::vector<std::vector<Pole*>> wezPlansze();
+    // const jest tu specjalnie, zeby nie mozna bylo w zaden nieprzewidziany sposob wplywac na pola i pionki
+    // jezeli chcemy je modyfikowac to nalezy napisac funkcje do tego celu przeznaczone
+    // wtedy bedziemy wiedzieli co sie dzieje z pionkami i funkcjonalnosci beda bardziej przejrzyste
+    const std::vector<std::vector<Pole*>> wezPola() { return plansza->wezPola(); };
+    const std::vector<Pion*> wezPionki() { return plansza->wezPionki(); };
 
     // TODO
-    void resetPlansze();
+    void wyczyscPlansze();
 
     // TODO
     // rozmiesc pionki przypadkowo
@@ -41,7 +45,7 @@ class Gra {
     void zapelnijPlanszeLosowo(std::vector<char>);
 
     // TODO
-    // czyli
+    // czyli 16 pionkami
     void zapelnijPlanszeRegulaminowo();
 
     // TODO
