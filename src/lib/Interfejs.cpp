@@ -47,10 +47,10 @@ void Interfejs::startProgram() {  //zaraz po starcie programu
     system("pause");
     system("cls");
 }
-void Interfejs::setText(std::string) {
+void Interfejs::setText(std::string text) {
 
-    switch(text){
-        case "reset":
+
+        if("reset"==text){
             std::string decyzja;
             std::cout << std::endl;
             std::cout << "czy chcesz zresetowac i zaczac od nowa? [t/n]" << std::endl;
@@ -73,8 +73,8 @@ void Interfejs::setText(std::string) {
                 std::cin >> new_input;
                 setText(new_input);
             }
-            break;
-        case "exit":
+        }
+        else if("exit"==text) {
             system("cls");
             std::cout << std::endl;
             SetConsoleTextAttribute(hConsole, 12); //color red
@@ -87,8 +87,8 @@ void Interfejs::setText(std::string) {
             std::cout << "Asia, Dominik, Hubert, Jarek, Julian, Kacper & Mateusz." << std::endl;;
             std::cout << std::endl;
             system("pause");
-            break;
-        default:
+        }
+        else {
 
             /*
 
@@ -132,6 +132,6 @@ void Interfejs::setText(std::string) {
             std::cin >> new_input;
             setText(new_input);
             //}
+        }
 
-    }
 }
