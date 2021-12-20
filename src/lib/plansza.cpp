@@ -1,7 +1,7 @@
 //
 // Created by jarek on 17.12.2021.
 //
-#include "Plansza.hpp"
+#include "plansza.hpp"
 
 #include <regex>
 

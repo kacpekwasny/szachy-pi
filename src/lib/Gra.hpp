@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "Plansza.hpp"
+#include "plansza.hpp"
 #include "pion_pole.hpp"
 
 enum ruchZwrotneStany { OK, POLE_PIONKA_PUSTE, POLE_DOCELOWE_ZAJETE, RUCH_NIEDOZWOLONY_DLA_PIONKA, WYBIERZ_NOWY_PIONEK };
