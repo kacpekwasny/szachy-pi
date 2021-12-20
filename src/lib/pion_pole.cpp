@@ -16,7 +16,10 @@ Pole::Pole(kp wiersz, kp kolumna, bool jestBiale) {
     this->jestBiale = jestBiale;
 }
 
-Pion::Pion(bool jestBialy) { this->jestBialy = jestBialy; }
+Pion::Pion(bool jestBialy, typyPionkaEnum typ) {
+    this->jestBialy = jestBialy;
+    this->typPionka = typ;
+}
 
 bool Pion::ustawZbity(bool zbity) { this->zbity = zbity; }
 

@@ -53,7 +53,7 @@ class Pion {
     bool ruchGoncemDozwolony(kp wiersz, kp kolumna);
 
    public:
-    Pion(bool jestBialy);
+    Pion(bool jestBialy, typyPionkaEnum typ);
     bool ustawZbity(bool zbity);
 
     // DONE
@@ -68,5 +68,12 @@ class Pion {
     // K-Krol
     // P-Pionek
     char wezLitere();
+    // H-Krolowa
+    // G-Goniec
+    // S-Skoczek
+    // W-Wieza
+    // K-Krol
+    // P-Pionek
     bool ustawTypPionkaPoLiterze(char);
+    void ustawTypPionka(typyPionkaEnum t) { typPionka = t; };
 };
