@@ -2,5 +2,8 @@
 *.o
 *.a
 *.out
+*idea*
 *idle*
+*idea*
+cmake-build-debug
 .vscode
