@@ -12,8 +12,12 @@ class Plansza {
     std::vector<std::vector<Pole *>> pola;
     std::vector<Pion *> pionki;
 
+    kp iloscWierszy;
+    kp iloscKolumn;
+
     // inicjalizacja pol planszy
-    Plansza(kp iloscWierszy, kp iloscKolumn);
+    // Plansza(kp iloscWierszy, kp iloscKolumn); - usuwam ponieważ ta funkcjonalność
+    // ma należeć do ustawPlansze()
 
    public:
     const std::vector<std::vector<Pole *>> wezPola() { return pola; }
@@ -21,14 +25,13 @@ class Plansza {
 
     Plansza();
 
-    // TODO
-    // usuwa dotychczasowa plansze i ustawia nowa
+    // DONE
     void ustawPlansze(kp wiersze, kp kolumny);
-
-    // TODO
     // ustawia wszystkie wszystkie `pionki.jestZbity = true;`
     // oraz wszystkie pola zaznacza na `pole.jestZajete = false`
-    void wyczyscPlansze();
+    void zdejmijPionkiZPlanszy();
+
+    // void wyczyscPlansze(); -pokrywająca się funkcjonalność z zdejmijPionkiZPlanszy()
 
     // TODO
     // wyczysc vector z pioinkami
@@ -36,12 +39,9 @@ class Plansza {
     void usunWszystkiePionki();
 
     // TODO
-    void zdejmijPionkiZPlanszy();
-
-    // TODO
     // rozmiesc pionki przypadkowo
     // argument to np.: {'R', 'R', 'G', 'P', 'P', 'P', 'P', 'S'}
-    void zapelnijPlanszeLosowo(std::vector<char>);
+    bool zapelnijPlanszeLosowo(std::vector<char>);
 
     // TODO
     // czyli 16 pionkami

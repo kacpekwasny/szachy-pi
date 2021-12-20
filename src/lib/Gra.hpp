@@ -38,21 +38,25 @@ class Gra {
     // funkcja majaca byc wykonywana po kadzym ruchu, na razie jedyna funkcjonalnosc to przeniesienie pionka na poczatek planszy
     void poWykonanymRuchu();
 
+    // funkcja jest prywatna poniewaz zeby dzialala, to musi byc kilka rzeczy spelnionych
+    void zapelnijPlanszeRegulaminowo() { plansza->zapelnijPlanszeRegulaminowo(); }
+
    public:
     // TODO
     void ustawConfigGry(zachowaniaPoDojscuPionkaNaKoniecEnum, bool bialeICzarne, bool zbijanieWlaczone);
+
+    // ustaw config na Klasyczny tryb gry
+    void ustawKlasycznyTrybGry();
 
     // DONE
     void ustawPlansze(kp iloscWierszy, kp iloscKolumn) { plansza->ustawPlansze(iloscWierszy, iloscKolumn); };
     void zdejmijPionkiZPlanszy() { plansza->zdejmijPionkiZPlanszy(); }
     void usunWszystkiePionki() { plansza->usunWszystkiePionki(); }
 
-    // TODO
+    // DONE
     // rozmiesc pionki przypadkowo
     // argument to np.: {'R', 'R', 'G', 'P', 'P', 'P', 'P', 'S'}
-    void zapelnijPlanszeLosowo(std::vector<char>);
-
-    void zapelnijPlanszeRegulaminowo() { plansza->zapelnijPlanszeRegulaminowo(); }
+    bool zapelnijPlanszeLosowo(std::vector<char> pionkiDoUtworzenia) { return plansza->zapelnijPlanszeLosowo(pionkiDoUtworzenia); };
 
     // const jest tu specjalnie, zeby nie mozna bylo w zaden nieprzewidziany sposob wplywac na pola i pionki
     // jezeli chcemy je modyfikowac to nalezy napisac funkcje do tego celu przeznaczone

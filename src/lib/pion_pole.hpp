@@ -7,7 +7,7 @@
 // Pole przesuniete do tego pliku bo byla petla include
 class Pole {
    public:
-    bool isZajete = false;
+    bool jestZajete = false;
     bool jestBiale = false;
     Pion* pionek;
     kp wiersz_;
@@ -53,9 +53,12 @@ class Pion {
     bool ruchGoncemDozwolony(kp wiersz, kp kolumna);
 
    public:
+    Pion(bool jestBialy);
+    bool ustawZbity(bool zbity);
+
     // DONE
-    void ustawKoordynatyPionka(kp wiersz, kp kolumna);
     bool ruchDozwolony(kp wiersz, kp kolumna);
+    void ustawPionekNaPolu(Pole* p);
 
     // DONE 2
     // H-Krolowa
