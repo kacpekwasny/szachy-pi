@@ -1,5 +1,6 @@
 
 #include "Interfejs.hpp"
+#include "Pole.hpp"
 #include <regex>
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -25,7 +26,7 @@ void Interfejs::render() {
     for (int i = 0; i < 8; i++) {
         std::cout << "\t" << i + 1 << "\t\t";
         for (int j = 0; j < 8; j++) {
-            std::cout << (plansza[i][j]->isZajete? bierki[tlumaczKomende(plansza[i][j]->pionek)] + "\t" : ".\t");
+            std::cout << (plansza[i][j]->isZajete ? bierki[tlumaczKomende(plansza[i][j]->pionek)] + "\t" : ".\t");
         }
         std::cout << "\t" << i + 1;
         std::cout << std::endl;
@@ -98,7 +99,6 @@ void Interfejs::help() {  //zaraz po starcie programu
 
 void Interfejs::setText(std::string text) {
 
-
         if("reset"==text){
             std::string decyzja;
             std::cout << std::endl;
@@ -139,13 +139,41 @@ void Interfejs::setText(std::string text) {
         else if("help"==text){
             help();
         }
-        else if ("ustawienia" == text) {  //config
+        else if ("settings" == text) {  
             system("cls");
 
+            std::cout << "Co ma sie dziac z pionkiem na koncu planszy?" << std::endl;
+            //dopisac
+            std::cout << "Kolory figur: [1/2]" << std::endl;
+            int kolor;
+            std::cin >> kolor;
+            if (kolor == 1) {
+                gra->ustawConfigGry(a, false, false);
+                
+                std::cout << "Czy da sie zbijac figury? [t/n]" << std::endl;
+                std::string zbicie;
+                std::cin >> zbicie;
+                if (zbicie == "t") {
+                    gra->ustawConfigGry(a, false, true);
+                }
+                else {
+                    gra->ustawConfigGry(a, false, false);
+                }
+            }
+            else {
+                gra->ustawConfigGry(a, true, false);
 
-            //dodac opcje do configu
-
-            Gra::ustawConfigGry();
+                std::cout << "Czy da sie zbijac figury? [t/n]" << std::endl;
+                std::string zbicie;
+                std::cin >> zbicie;
+                if (zbicie == "t") {
+                    gra->ustawConfigGry(a, true, true);
+                }
+                else {
+                    gra->ustawConfigGry(a, true, false);
+                }
+            }
+            
             std::cout << "Podaj jakie figury maja sie znalezc na planszy wpisujac ich symbol: " << std::endl;
                 std::cout << "R - krolowa" << std::endl;
                 std::cout << "K - krol" << std::endl;
@@ -153,14 +181,16 @@ void Interfejs::setText(std::string text) {
                 std::cout << "W - wieza" << std::endl;
                 std::cout << "P - pionek" << std::endl;
                 std::cout << "G - goniec" << std::endl;
-                cin >> //? ;
-            Gra::zapelnijPlanszeLosowo();
+
+                std::vector<char> pionkiDoUtworzenia;
+                std::cin >> pionkiDoUtworzenia;
+            gra->zapelnijPlanszeLosowo(pionkiDoUtworzenia);
                 system("cls");
                 render();
         }
         else if(isKomenda(text)){
-            Input input = tlumaczKomende(text);
-            Gra::ruch();
+            Input wspolrzedne = tlumaczKomende(text);
+            gra->ruch(wspolrzedne);
         }
         else{
             std::cout << "Niepoprawna komenda, wpisz jeszcz raz" << std::endl;
