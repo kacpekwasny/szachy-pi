@@ -42,28 +42,17 @@ class Gra {
     // TODO
     void ustawConfigGry(zachowaniaPoDojscuPionkaNaKoniecEnum, bool bialeICzarne, bool zbijanieWlaczone);
 
-    // TODO
-    // usuwa dotychczasowa plansze i ustawia nowa
-    void ustawPlansze(kp iloscWierszy, kp iloscKolumn);
-
-    // TODO
-    // ustawia wszystkie wszystkie `pionki.jestZbity = true;`
-    // oraz wszystkie pola zaznacza na `pole.jestZajete = false`
-    void zdejmijPionkiZPlanszy();
-
-    // TODO
-    void usunWszystkiePionki();
+    // DONE
+    void ustawPlansze(kp iloscWierszy, kp iloscKolumn) { plansza->ustawPlansze(iloscWierszy, iloscKolumn); };
+    void zdejmijPionkiZPlanszy() { plansza->zdejmijPionkiZPlanszy(); }
+    void usunWszystkiePionki() { plansza->usunWszystkiePionki(); }
 
     // TODO
     // rozmiesc pionki przypadkowo
     // argument to np.: {'R', 'R', 'G', 'P', 'P', 'P', 'P', 'S'}
     void zapelnijPlanszeLosowo(std::vector<char>);
 
-    // TODO
-    // czyli 16 pionkami
-    // gdyby plansza byla wieksza, to mozna zrobic tak, ze jakos skaluje liczbe pionkow czy cos
-    // to zalezy od weny tworczej autora
-    void zapelnijPlanszeRegulaminowo();
+    void zapelnijPlanszeRegulaminowo() { plansza->zapelnijPlanszeRegulaminowo(); }
 
     // const jest tu specjalnie, zeby nie mozna bylo w zaden nieprzewidziany sposob wplywac na pola i pionki
     // jezeli chcemy je modyfikowac to nalezy napisac funkcje do tego celu przeznaczone
