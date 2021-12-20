@@ -1,8 +1,17 @@
 
 #include "Interfejs.hpp"
+#include <regex>
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
+//wewneczna funkcja
+int tlumaczDoRender(typyPionkaEnum a){
+    if(KROL==a)     return 0;
+    if(KROLOWA==a)  return 1;
+    if(WIEZA==a)    return 2;
+    if(GONIEC==a)   return 3;
+    if(SKOCZEK==a)  return 4;
+    if(PIONEK==a)   return 5;
+}
 void Interfejs::render() {
     static const std::string bierki[] = {"\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
                                          "\u265a", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
@@ -15,7 +24,7 @@ void Interfejs::render() {
     for (int i = 0; i < 8; i++) {
         std::cout << "\t" << i + 1 << "\t\t";
         for (int j = 0; j < 8; j++) {
-            std::cout << (plansza[i][j]->isZajete ? bierki[plansza[i][j]->typBierki] + "\t" : ".\t");
+            std::cout << (plansza[i][j]->isZajete ? bierki[tlumaczKomende(plansza[i][j]->pionek)] + "\t" : ".\t");
         }
         std::cout << "\t" << i + 1;
         std::cout << std::endl;
