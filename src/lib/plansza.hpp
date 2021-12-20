@@ -1,28 +1,33 @@
-#pragma once
-//
-// Created by mateusz on 19.12.2021.
-//
+#include <iostream>
+#include <string>
+#include <vector>
 
-void pionowe(int w);
+#include "Pole.hpp"
+#include "def_typow.hpp"
+#include "pion.hpp"  //zmiana z <> na "", cudzysÅ‚owia sÄ… do lokalnych bibliotek
 
-	//funkcja wstawiaj¹ca pionowe kreski z planszy na szerokoœæ tablicy - budowa planszy.
+// Plansza - plansza
+class Plansza {
+   private:
+    // pola[wiersze][kolumny]
+    std::vector<std::vector<Pole *>> pola;
+// inicjalizacja pol planszy
+    Plansza(kp iloscWierszy, kp iloscKolumn);
 
-void krzyze(int w);
+public:
+    std::vector<Pion *> pionki;
 
-	//funkcja wstawia krzyzyki do planszy - budowa planszy.
+    // plansza zawsze ma tyle samo pull
+    Plansza();
 
-void createBoard();
+    void przypadkoweRozmieszczeniePionow() {}
 
-	//tworzy tablice, czyli plansze wykorzystujac dwie poprzednie funkcje.
+    /*
+        Resetuje pionki i pola tablicy
+    */
+    void reset();
 
-void showBoard();
+    // void render(); -> przeniesione do `class Interfejs`
 
-	//funckja pokazujaca aktualny stan planszy - renderuje ja od nowa z figurami na odpowiednich polach.
-
-void generatePositions();
-
-	//losuje miejsca dla figur w tablicy - funkcja tylko na uzywana na poczatku programu.
-
-void setFigures();
-
-	//wpisuje w odpowiednie miejsca w tablicy, czyli na planszy, figury.
+    // void setText(); -> przeniesione do `class Pion`
+};

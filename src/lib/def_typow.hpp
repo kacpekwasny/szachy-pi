@@ -1,17 +1,22 @@
 /*
 17.12.2021
-Kacper Kwaœny
+<<<<<<< HEAD
+Kacper KwaÅ›ny
 
-Plik jest przeznaczony do utworzenia typów, które bêd¹ u¿ywane globalnie.
+Plik jest przeznaczony do utworzenia typÃ³w, ktÃ³re bÄ™dÄ… uÅ¼ywane globalnie.
 
-Przyk³ad to wyt³umaczy, aktualnie wszêdzie do wprowadzania koordynatów na planszy planuje u¿ywaæ
-`unsigned int` ale gdyby siê okaza³o, ¿e jest to niepoprawny typ do tego przeznaczenia to wystarczy, ¿e tutaj
-zmienie.
+PrzykÅ‚ad to wytÅ‚umaczy, aktualnie wszÄ™dzie do wprowadzania koordynatÃ³w na
+planszy planuje uÅ¼ywaÄ‡ `unsigned int` ale gdyby siÄ™ okazaÅ‚o, Å¼e jest to
+niepoprawny typ do tego przeznaczenia to wystarczy, Å¼e tutaj zmienie.
 */
 
+// Koordynat planszy - uÅ¼ywany do X albo Y w koordynatach na planszy
+// peÅ‚na informacja identyfikujÄ…ca pole bÄ™dzie zawieraÅ‚a dwie zmienne `bc`
+// jednÄ… do X'Ã³w i jednÄ… do Y'Ã³w
 
-// Koordynat planszy - u¿ywany do X albo Y w koordynatach na planszy
-// pe³na informacja identyfikuj¹ca pole bêdzie zawiera³a dwie zmienne `bc`
-// jedn¹ do X'ów i jedn¹ do Y'ów
 typedef unsigned int kp;
 
+/**
+ * typy pionkÃ³w przeniesione tam gdzie powinny byÄ‡ typy
+ */
+enum typyPionkaEnum { PIONEK, SKOCZEK, WIEZA, GONIEC, KROL, KROLOWA };

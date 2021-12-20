@@ -1,175 +1,85 @@
-﻿//
-// Created by mateusz on 16.12.2021.
 //
+// Created by jarek on 17.12.2021.
+//
+#include "Plansza.hpp"
+#include <regex>
 
-#include <iostream>
-#include <stdlib.h>
-#include <time.h>
-#include <windows.h>
-
-#include "plansza.hpp"
-
-// ZNAKI CHAR DO PLANSZY
-// 179 pionowa kreska
-// 180 pionowa kreska ze środkiem prawa
-// 195 pionowa kreska ze środkiem lewa
-// 197 krzyżyk środek
-// 196 pozioma kreska
-// 191 prawy górny róg
-// 193 pozioma kreska dolna
-// 194 pozioma kreska górna
-// 192 lewy dolny róg
-// 217 prawy dolny róg
-// 218 lewy górny róg
-
-char plansza[17][33] = { ' ' };
-
-int tabPozycjaX[4];
-int tabX[4];
-int tabPozycjaY[4];
-int tabY[4];
-
-int tabPosition[8];
-int tab[8];
-
-void pionowe(int w) {
-
-    for (int i = 0; i < 33; i += 4) {
-        plansza[w][i] = char(179);
-    }
-
-    for (int i = 1; i < 33; i += 4) {
-        plansza[w][i] = char(32);
-        plansza[w][i + 1] = char(32);
-        plansza[w][i + 2] = char(32);
-    }
+Pole::Pole(int x, int y) {
+    this->x = x;
+    this->y = y;
 }
 
-void krzyze(int w) {
 
-    plansza[w][0] = char(195);
+Plansza::Plansza(kp iloscWierszy, kp iloscKolumn) {
+    // inicjalizacja pol (planszy de fakto)
+    for (kp w = 0; w < iloscWierszy; w++) {
+        std::vector<Pole *> wiersz;
 
-    for (int i = 1; i < 33; i += 4) {
-        plansza[w][i] = char(196);
-        plansza[w][i + 1] = char(196);
-        plansza[w][i + 2] = char(196);
-    }
-
-    for (int i = 4; i < 33; i += 4) {
-        plansza[w][i] = char(197);
-    }
-
-    plansza[w][32] = char(180);
-}
-
-void createBoard() {
-
-    //ZEROWY RZĄD (GÓRA)
-    plansza[0][0] = char(218);
-
-    for (int i = 1; i < 31; i += 2) {
-        plansza[0][i] = char(196);
-        i++;
-        plansza[0][i] = char(196);
-        i++;
-        plansza[0][i] = char(196);
-    }
-
-    for (int i = 4; i < 31; i += 4) {
-        plansza[0][i] = char(194);
-    }
-
-    plansza[0][32] = char(191);
-
-    for (int i = 1; i <= 14; i+=2) {
-        pionowe(i);
-        krzyze(i + 1);
-    }
-    pionowe(15);
-
-    //OSTATNI RZĄD (DÓŁ)
-    plansza[16][0] = char(192);
-
-    for (int i = 1; i < 33; i += 4) {
-        plansza[16][i] = char(196);
-        plansza[16][i + 1] = char(196);
-        plansza[16][i + 2] = char(196);
-    }
-
-    for (int i = 4; i < 33; i += 4) {
-        plansza[16][i] = char(193);
-    }
-
-    plansza[16][32] = char(217);
-}
-
-void showBoard() {
-
-    //WSPÓŁRZĘDNE GÓRNE (A-H)
-    std::cout << std::endl;
-    std::cout << char(32) << char(32);
-    for (int i = 65; i < 73; i++) {
-        std::cout << char(32) << char(32) << char(32) << char(i);
-    }
-    std::cout << std::endl;
-
-    //PIONOWE WSPÓŁRZĘDNE PLANSZY (1-8) & CAŁA TABLICA
-    int licznik = 1; 
-    for (int w = 0; w < 17; w++) {
-        if (w % 2 != 0) {
-            std::cout << char(32) << licznik << " ";
-            licznik++;
+        for (kp k = 0; k < iloscKolumn; k++) {
+            Pole *p;
+            p->isZajete = false;
+            p->kolumna = k;
+            p->wiersz = w;
+            wiersz.push_back(p);
         }
-        else
-            std::cout << char(32) << char(32) << " ";
-        for (int k = 0; k < 33; k++) {
-            std::cout << plansza[w][k];
-        }
-        std::cout << std::endl;
+        pola.push_back(wiersz);
     }
 }
-/*
-void generatePositionY() {
-    // 0123456789......................32
-    // │   │   │   │   │   │   │   │   │
+Plansza::Plansza() :Plansza(8,8) {
 
-    srand(time(NULL));
-
-    for (int i = 0; i < 4; i++) {
-        tabY[i] = (rand() % 8) + 1;
-        tabPozycjaY[i] = tabY[i] + (tabY[i] - 1) * 3 + 1;
-    }
 }
 
-void generatePositionX() {
-    // 1 3 5 7 ...
-    srand(time(NULL));
-
-    for (int i = 0; i < 4; i++) {
-        tabX[i] = (rand() % 8) + 1;
-        tabPozycjaX[i] = tabX[i] + (tabX[i] - 1);
+Plansza::~Plansza() {
+    for (int i = 0; i < 8; i++) {
+        delete plansza[i];
     }
+    delete plansza;
 }
-*/
-void generatePositions() {
-
-    srand(time(NULL));
-    //x 1 3 5 7 ...
-    for (int i = 0; i < 4; i++) {
-        tab[i] = (rand() % 8) + 1;
-        tabPosition[i] = tab[i] + (tab[i] - 1);
+bool Plansza::isKomenda(std::string s) {
+    std::cmatch k;
+    if (s.size() > 5 || s.size() < 4) return false;
+    if (std::regex_match(s.begin(), s.end(),
+                         std::regex("(^[KQBNkqbn][a-gA-G][[1-8][a-gA-G][[1-8]|["
+                                    "a-gA-G][[1-8][a-gA-G][[1-8])")))
+        return true;
+    return false;
+}
+void Plansza::runCmd(std::string) {}
+void Plansza::runInput(std::string inp) {
+    // komendy mają strukture Kd3de, e2e3
+    // pola mogą mieć abcdefg
+    // bierki moga mieć KQB
+    if (Plansza::isKomenda(inp)) {
+        Plansza::tlumaczKomende(inp);
+        runCmd(inp);  // wyjdż albo reset planszy?
+        return;
     }
-    //y 2 6 10 ...
-    for (int i = 4; i < 8; i++) {
-        tab[i] = (rand() % 8) + 1;
-        tabPosition[i] = tab[i] + (tab[i] - 1) * 3 + 1;
+    // Poprzez return linijkę wyżej program dojdzie do tego miejsca wyłącznie,
+    // jeżeli if się nie wykona. Więc działa to praktycznie jak if/else,
+    // ale kod jest ładniejszy
+    if (chooseOrMove == choose) {  // wybieramy pionek
+        bool ok = choosePawn(inp);
     }
 }
 
-void setFigures() {
+bool Plansza::choosePawn(std::string inp) { return true; }
 
-    plansza[tabPosition[0]][tabPosition[4]] = 'W';
-    plansza[tabPosition[1]][tabPosition[5]] = 'S';
-    plansza[tabPosition[2]][tabPosition[6]] = 'P';
-    plansza[tabPosition[3]][tabPosition[7]] = 'K';
+Plansza::Input Plansza::tlumaczKomende(std::string inp) {
+    Input i;
+    if (inp.size() == 4) {
+        i.x = inp[0] - 'a';
+        i.y = inp[1] - '0';
+        i.X = inp[2] - 'a';
+        i.Y = inp[3] - '0';
+        i.isKnownStart = true;
+        i.name = ' ';
+    } else {
+        i.x = inp[1] - 'a';
+        i.y = inp[2] - '0';
+        i.X = inp[3] - 'a';
+        i.Y = inp[4] - '0';
+        i.isKnownStart = true;
+        i.name = inp[0];
+    }
+    return i;
 }
