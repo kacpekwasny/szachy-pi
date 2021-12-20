@@ -18,3 +18,13 @@ typedef unsigned int kp;
  * typy pionków przeniesione tam gdzie powinny być typy
  */
 enum typyPionkaEnum { PIONEK, SKOCZEK, WIEZA, GONIEC, KROL, KROLOWA };
+//tłumaczenie komend na wejsciu
+struct Input{
+    int x;
+    int y;
+    bool isKnownStart;
+    int X;
+    int Y;
+    Pion pion;
+    char name;
+};

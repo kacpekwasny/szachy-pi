@@ -1,5 +1,6 @@
 
 #include "Interfejs.hpp"
+#include "def_typow.hpp"
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
