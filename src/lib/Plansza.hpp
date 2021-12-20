@@ -2,9 +2,8 @@
 #include <string>
 #include <vector>
 
-#include "Pole.hpp"
 #include "def_typow.hpp"
-#include "pion.hpp"  //zmiana z <> na "", cudzysłowia są do lokalnych bibliotek
+#include "pion_pole.hpp"
 
 // Plansza - plansza
 class Plansza {

@@ -38,7 +38,7 @@ bool Pion::ruchDozwolony(kp wiersz, kp kolumna) {
 };
 
 bool Pion::ruchPionkiemDozwolony(kp wiersz, kp kolumna) {
-    if (kolumna_ - this->pole->kolumna_ != 0 || wiersz - this->pole->wiersz_ != 1) {
+    if (kolumna - this->pole->kolumna_ != 0 || wiersz - this->pole->wiersz_ != 1) {
         /* wykluczam mozliwosc poruszania sie po przekatnych, na boki,
          * do tylu lub o wiecej niz jedno pole do przodu */
         return false;
