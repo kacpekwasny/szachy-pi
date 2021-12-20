@@ -12,6 +12,7 @@ int tlumaczDoRender(typyPionkaEnum a){
     if(SKOCZEK==a)  return 4;
     if(PIONEK==a)   return 5;
 }
+
 void Interfejs::render() {
     static const std::string bierki[] = {"\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
                                          "\u265a", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
@@ -32,6 +33,7 @@ void Interfejs::render() {
     std::cout << "\n"
               << "\t\t\tA \tB \tC \tD \tE \tF \tG \tH\n";
 }
+
 bool Interfejs::isKomenda(std::string s) {
     std::cmatch k;
     if (s.size() > 5 || s.size() < 4) return false;
@@ -41,6 +43,7 @@ bool Interfejs::isKomenda(std::string s) {
         return true;
     return false;
 }
+
 Input Interfejs::tlumaczKomende(std::string inp) {
     Input i;
     if (inp.size() == 4) {
@@ -60,6 +63,7 @@ Input Interfejs::tlumaczKomende(std::string inp) {
     }
     return i;
 }
+
 void Interfejs::help() {  //zaraz po starcie programu
 
     std::cout << "Komendy dostepne podczas dzialania programu: " << std::endl;
@@ -75,17 +79,23 @@ void Interfejs::help() {  //zaraz po starcie programu
     std::cout << "help";
     SetConsoleTextAttribute(hConsole, 7); //color white
     std::cout << " - informacja o możliwych ruchach oraz krótkie wprowadzenie." << std::endl;
+    SetConsoleTextAttribute(hConsole, 2); //color green
+    std::cout << "ustawienia";
+    SetConsoleTextAttribute(hConsole, 7); //color white
+    std::cout << " - zmien ustawienia gry." << std::endl;
     std::cout << std::endl;
-    std::cout << "Aby poruszac sie figurami po planszy posluguj sie notacja szachowa np. d5." << std::endl;
+    std::cout << "Instrukcja: " << std::endl;
+    std::cout << "Aby poruszac sie figurami po planszy posluguj sie notacja szachowa np. kd5a3." << std::endl;
     std::cout << "Pamiętaj, kolejnosc wpisywania ma znaczenie - najpierw litera, potem liczba." << std::endl;
+    std::cout << "Kolejnosc pol takze ma znaczenie, najpierw pole na ktorym stoi figura, " << std::endl;
+    std::cout << "ktora chcesz sie ruszyc, potem pole na ktore chcesz sie nia ruszyc. " << std::endl;
     std::cout << std::endl;
     std::cout << "Milej gry." << std::endl;
     std::cout << std::endl;
     system("pause");
     system("cls");
-    //config
-
 }
+
 void Interfejs::setText(std::string text) {
 
 
@@ -129,57 +139,35 @@ void Interfejs::setText(std::string text) {
         else if("help"==text){
             help();
         }
+        else if ("ustawienia" == text) {  //config
+            system("cls");
+
+
+            //dodac opcje do configu
+
+            Gra::ustawConfigGry();
+            std::cout << "Podaj jakie figury maja sie znalezc na planszy wpisujac ich symbol: " << std::endl;
+                std::cout << "R - krolowa" << std::endl;
+                std::cout << "K - krol" << std::endl;
+                std::cout << "S - skoczek" << std::endl;
+                std::cout << "W - wieza" << std::endl;
+                std::cout << "P - pionek" << std::endl;
+                std::cout << "G - goniec" << std::endl;
+                cin >> //? ;
+            Gra::zapelnijPlanszeLosowo();
+                system("cls");
+                render();
+        }
         else if(isKomenda(text)){
             Input input = tlumaczKomende(text);
-
+            Gra::ruch();
         }
         else{
-
-
-            /*
-
-            kp=text;  //jakos sie to rozwiaze xd
-
-            if (CzyWybranePoleNalezyDoPlanszy(kp) == true) {
-
-                if (CzyNaPoluStoiJakasFigura(kp) == true) {
-                    std::cout << "Wybierz pole, na ktore chcesz sie ruszyc. << std::endl;
-                    std::cin >> kp;
-                    if (CzyWybranePoleNalezyDoPlanszy(kp) == true) {
-
-                        if (CzyNaPoluStoiJakasFigura(kp) == false) {
-
-                            if (CzyMozeSieTamRuszyc == true ) {
-                                //funkcja replace? - rusz tam figure
-                            }
-                            else {
-                                std::cout << "Wybrana figura nie moze sie tam ruszyc, wpisz koncowa wspolrzedna jeszcze raz." << std::endl;
-                            }
-                        }
-                        else {
-                            std::cout << "Wybrane pole juz jest zajete. Wpisz koncowa wspolrzedna jeszcze raz." << std::endl;
-                        }
-                    }
-                    else {
-                        std::cout << "Wybrane pole nie nalezy do planszy. Wpisz koncowa wspolrzedna jeszcze raz." << std::endl;
-                        funkcja??
-                    }
-                }
-                else {
-                    std::cout << "To pole jest puste i nie stoi na nim zadna figura, wpisz pierwsza wspolrzedna jeszcze raz." << std::endl;
-                    std::string new_input;
-                    std::cin >> new_input;
-                    setText(new_input);
-                }
-            }
-            else { */
-            std::cout << "Wybrane pole nie nalezy do planszy. Wpisz pierwsza wspolrzedna jeszcze raz." << std::endl;
+            std::cout << "Niepoprawna komenda, wpisz jeszcz raz" << std::endl;
             std::string new_input;
             std::cin >> new_input;
             setText(new_input);
-            //}
         }
-
 }
 
 void Interfejs::StartGry() {
@@ -192,7 +180,7 @@ void Interfejs::StartGry() {
         try {
             std::cin >> s;
             setText(s);
-        }catch (std::__exception_ptr::exception_ptr e){
+        }catch (std::_exception_ptr::exception_ptr e){
             break;
         }
     }

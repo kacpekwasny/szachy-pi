@@ -1,27 +1,13 @@
 //
-// Created by jarek on 17.12.2021.
+// Created by mateusz on 20.12.2021.
 //
 
 #include <iostream>
-#include "def_typow.hpp"
-#include "oprawaTekstowa.hpp"
-#include "plansza.hpp"
+#include "Interfejs.hpp"
 
 int main() {
 
-    startProgram();
-    createBoard();
-    generatePositions();
-    // generatePositionX();
-    // generatePositionY();
-    setFigures();
-    showBoard();
-
-    std::cout << "Podaj pole figury, ktora chcesz sie ruszyc." << std::endl;
-    std::string input;
-    std::cin >> input;
-
-    setText(input);
+    Interfejs::StartGry;
 
 return 0;
 }
