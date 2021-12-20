@@ -24,7 +24,7 @@ void Interfejs::render() {
     for (int i = 0; i < 8; i++) {
         std::cout << "\t" << i + 1 << "\t\t";
         for (int j = 0; j < 8; j++) {
-            std::cout << (plansza[i][j]->isZajete ? bierki[tlumaczKomende(plansza[i][j]->pionek)] + "\t" : ".\t");
+            std::cout << (plansza[i][j]->isZajete? bierki[tlumaczKomende(plansza[i][j]->pionek)] + "\t" : ".\t");
         }
         std::cout << "\t" << i + 1;
         std::cout << std::endl;
@@ -35,13 +35,13 @@ void Interfejs::render() {
 bool Interfejs::isKomenda(std::string s) {
     std::cmatch k;
     if (s.size() > 5 || s.size() < 4) return false;
-    if (std::regex_match(s.begin(), s.end(),
+    if (std::regex_match(s.begin(), s.end(),//d2d4
                          std::regex("(^[KQBNkqbn][a-gA-G][[1-8][a-gA-G][[1-8]|["
                                     "a-gA-G][[1-8][a-gA-G][[1-8])")))
         return true;
     return false;
 }
-def_typow::Input Interfejs::tlumaczKomende(std::string inp) {
+Input Interfejs::tlumaczKomende(std::string inp) {
     Input i;
     if (inp.size() == 4) {
         i.x = inp[0] - 'a';
@@ -60,7 +60,7 @@ def_typow::Input Interfejs::tlumaczKomende(std::string inp) {
     }
     return i;
 }
-void Interfejs::startProgram() {  //zaraz po starcie programu
+void Interfejs::help() {  //zaraz po starcie programu
 
     std::cout << "Komendy dostepne podczas dzialania programu: " << std::endl;
     SetConsoleTextAttribute(hConsole, 2); //color green
@@ -72,7 +72,7 @@ void Interfejs::startProgram() {  //zaraz po starcie programu
     SetConsoleTextAttribute(hConsole, 7); //color white
     std::cout << " - zakonczenie gry i wyjscie z programu." << std::endl;
     SetConsoleTextAttribute(hConsole, 2); //color green
-    std::cout << "info";
+    std::cout << "help";
     SetConsoleTextAttribute(hConsole, 7); //color white
     std::cout << " - informacja o możliwych ruchach oraz krótkie wprowadzenie." << std::endl;
     std::cout << std::endl;
@@ -83,6 +83,8 @@ void Interfejs::startProgram() {  //zaraz po starcie programu
     std::cout << std::endl;
     system("pause");
     system("cls");
+    //config
+
 }
 void Interfejs::setText(std::string text) {
 
@@ -95,8 +97,6 @@ void Interfejs::setText(std::string text) {
             if (decyzja == "t") {
 
                 system("cls");
-                generatePositions();
-                setFigures();
                 render();
 
                 std::cout << "Podaj pole figury, ktora chcesz sie ruszyc." << std::endl;
@@ -124,8 +124,17 @@ void Interfejs::setText(std::string text) {
             std::cout << "Asia, Dominik, Hubert, Jarek, Julian, Kacper & Mateusz." << std::endl;;
             std::cout << std::endl;
             system("pause");
+            throw "exit";
         }
-        else {
+        else if("help"==text){
+            help();
+        }
+        else if(isKomenda(text)){
+            Input input = tlumaczKomende(text);
+
+        }
+        else{
+
 
             /*
 
@@ -171,4 +180,20 @@ void Interfejs::setText(std::string text) {
             //}
         }
 
+}
+
+void Interfejs::StartGry() {
+    gra = new Gra;
+    gra->ustawKlasycznyTrybGry();
+    render();
+    help();
+    std::string s;
+    for(;;){
+        try {
+            std::cin >> s;
+            setText(s);
+        }catch (std::__exception_ptr::exception_ptr e){
+            break;
+        }
+    }
 }

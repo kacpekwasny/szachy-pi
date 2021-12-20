@@ -28,10 +28,11 @@ class Interfejs {
         for (auto p : gra->wezPlansze()->pionki) {
         }
     }
-    def_typow::Input tlumaczKomende(std::string);
+    bool isKomenda(std::string);
+    Input tlumaczKomende(std::string);
    public:
+    void StartGry();
     // input, rysowanie, output
-    void glownaPetla();
     void render();
-    void startProgram();
+    void help();
 };
