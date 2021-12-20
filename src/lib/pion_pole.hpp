@@ -76,4 +76,6 @@ class Pion {
     // P-Pionek
     bool ustawTypPionkaPoLiterze(char);
     void ustawTypPionka(typyPionkaEnum t) { typPionka = t; };
+
+    bool naDrodzeGonca(kp wiersz, kp kolumna, const std::vector<std::vector<Pole*>>);
 };

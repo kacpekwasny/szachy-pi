@@ -24,29 +24,26 @@ class Plansza {
     const std::vector<Pion *> wezPionki() { return pionki; }
 
     Plansza();
+    // kasuje pola planszy
 
-    // DONE
+    // i tworzy nowe pola planszy o wielkosci wiersze x kolumny
     void ustawPlansze(kp wiersze, kp kolumny);
+
     // ustawia wszystkie wszystkie `pionki.jestZbity = true;`
     // oraz wszystkie pola zaznacza na `pole.jestZajete = false`
     void zdejmijPionkiZPlanszy();
 
     // void wyczyscPlansze(); -pokrywająca się funkcjonalność z zdejmijPionkiZPlanszy()
 
-    // TODO
     // wyczysc vector z pioinkami
     // zreesetuj stan pol na jestZajete=false
     void usunWszystkiePionki();
 
-    // TODO
     // rozmiesc pionki przypadkowo
     // argument to np.: {'R', 'R', 'G', 'P', 'P', 'P', 'P', 'S'}
     bool zapelnijPlanszeLosowo(std::vector<char>);
 
-    // TODO
-    // czyli 16 pionkami
-    // gdyby plansza byla wieksza, to mozna zrobic tak, ze jakos skaluje liczbe pionkow czy cos
-    // to zalezy od weny tworczej autora
+    //
     void zapelnijPlanszeRegulaminowo();
 
     // void render(); -> przeniesione do `class Interfejs`

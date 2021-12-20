@@ -43,19 +43,24 @@ class Gra {
 
    public:
     // TODO
+    // ustaw zasady gry, czy sa dwa kolory, czy mozna zbijac, co sie dzieje z pionkiem, ktory dojdzie do konca planszy
     void ustawConfigGry(zachowaniaPoDojscuPionkaNaKoniecEnum, bool bialeICzarne, bool zbijanieWlaczone);
 
     // ustaw config na Klasyczny tryb gry
     void ustawKlasycznyTrybGry();
 
-    // DONE
+    // usun pola planszy i stworz nowe pola planszy wielkosci iloscWierszy x iloscKolumn
     void ustawPlansze(kp iloscWierszy, kp iloscKolumn) { plansza->ustawPlansze(iloscWierszy, iloscKolumn); };
+
+    // wszystkie pola zmieniaja status na jestZajete=false
+    // a wszystkie pionki na zbite=true
     void zdejmijPionkiZPlanszy() { plansza->zdejmijPionkiZPlanszy(); }
+
+    // czysci vector z pionkami
     void usunWszystkiePionki() { plansza->usunWszystkiePionki(); }
 
-    // DONE
     // rozmiesc pionki przypadkowo
-    // argument to np.: {'R', 'R', 'G', 'P', 'P', 'P', 'P', 'S'}
+    // przykladowy argument to np.: {'R', 'R', 'G', 'P', 'P', 'P', 'P', 'S'}
     bool zapelnijPlanszeLosowo(std::vector<char> pionkiDoUtworzenia) { return plansza->zapelnijPlanszeLosowo(pionkiDoUtworzenia); };
 
     // const jest tu specjalnie, zeby nie mozna bylo w zaden nieprzewidziany sposob wplywac na pola i pionki

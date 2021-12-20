@@ -106,10 +106,10 @@ char Pion::wezLitere() {
     }
 }
 
-bool Pion::ustawTypPionkaPoLiterze(char l) {
+bool Pion::ustawTypPionkaPoLiterze(char letter) {
     const char toUpper = 32;
     // convert char to upper
-    switch (l > 60 ? l - toUpper : l) {
+    switch (letter > 60 ? letter - toUpper : letter) {
         case 'H':
             this->typPionka = KROLOWA;
             return true;
@@ -137,4 +137,16 @@ void Pion::ustawPionekNaPolu(Pole* p) {
     this->pole = p;
     p->pionek = this;
     this->zbity = false;
+}
+
+bool Pion::naDrodzeGonca(kp wiersz, kp kolumna, std::vector<std::vector<Pole*>> pola) {
+    /* musi sprawdzac czy kolejne wspolrzedne, po których bedzie poruszac sie pionek nie jest
+    poczatkowymi wspolrzednymi innego pionka  */
+    for (kp i = 0; i < abs(this->pole->kolumna_ - kolumna); i++) {
+        if (pola[this->pole->wiersz_ + i][this->pole->kolumna_ + i].jestZajete) {
+            /* wystarczy jedna petla, bo goniec przemieszcza sie na skos, wiec przyrost wierszy i kolumn jest taki sam */
+            return true;
+        }
+    }
+    return false;
 }
