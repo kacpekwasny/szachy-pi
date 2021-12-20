@@ -1,6 +1,5 @@
 
 #include "Interfejs.hpp"
-#include "def_typow.hpp"
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -10,12 +9,13 @@ void Interfejs::render() {
     for (std::string s : bierki) {
         std::cout << s;
     }
+    auto plansza=gra->wezPola();
     std::cout << "\n\t\t\tA\tB \tC \tD \tE \tF \tG \tH\n"
               << "\n";
     for (int i = 0; i < 8; i++) {
         std::cout << "\t" << i + 1 << "\t\t";
         for (int j = 0; j < 8; j++) {
-            std::cout << (plansza[i][j].isZajete ? bierki[plansza[i][j].typBierki] + "\t" : ".\t");
+            std::cout << (plansza[i][j]->isZajete ? bierki[plansza[i][j]->typBierki] + "\t" : ".\t");
         }
         std::cout << "\t" << i + 1;
         std::cout << std::endl;

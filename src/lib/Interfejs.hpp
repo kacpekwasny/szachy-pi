@@ -11,6 +11,7 @@
 
 
 #include "Gra.hpp"
+#include "def_typow.hpp"
 
 
 class Interfejs {
@@ -27,7 +28,7 @@ class Interfejs {
         for (auto p : gra->wezPlansze()->pionki) {
         }
     }
-
+    def_typow::Input tlumaczKomende(std::string);
    public:
     // input, rysowanie, output
     void glownaPetla();

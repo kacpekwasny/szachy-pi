@@ -16,8 +16,10 @@ typedef unsigned int kp;
 
 /**
  * typy pionków przeniesione tam gdzie powinny być typy
+ * potrzebuje zmienić kolejność z tej na nową
+ * (stara kolejność PIONEK, SKOCZEK, WIEZA, GONIEC, KROL, KROLOWA)
  */
-enum typyPionkaEnum { PIONEK, SKOCZEK, WIEZA, GONIEC, KROL, KROLOWA };
+enum typyPionkaEnum { KROL,KROLOWA, WIEZA, GONIEC,SKOCZEK, PIONEK,   };
 //tłumaczenie komend na wejsciu
 struct Input{
     int x;
@@ -25,6 +27,5 @@ struct Input{
     bool isKnownStart;
     int X;
     int Y;
-    Pion pion;
     char name;
 };
