@@ -44,20 +44,16 @@ class Pion {
         mają one wziąć wiersz i kolumne i stwierdzić,
         czy mogą się tam ruszyć według zasad obowiązujących dany pionek.
     */
-    // DONE 4
+    // DONE
     bool ruchPionkiemDozwolony(kp wiersz, kp kolumna);
     bool ruchKrolemDozwolony(kp wiersz, kp kolumna);
     bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna);
     bool ruchWiezaDozwolony(kp wiersz, kp kolumna);
-
-    // TODO
     bool ruchKrolowaDozwolony(kp wiersz, kp kolumna);
-
-    // TODO
     bool ruchGoncemDozwolony(kp wiersz, kp kolumna);
 
    public:
-    // DONE 2
+    // DONE
     void ustawKoordynatyPionka(kp wiersz, kp kolumna);
     bool ruchDozwolony(kp wiersz, kp kolumna);
 
