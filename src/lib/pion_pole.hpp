@@ -1,3 +1,6 @@
+#ifndef PION_POLE_HPP_GUARD
+#define PION_POLE_HPP_GUARD
+
 #include <cmath>
 #include <string>
 #include <vector>
@@ -79,3 +82,5 @@ class Pion {
 
     bool naDrodzeGonca(kp wiersz, kp kolumna, const std::vector<std::vector<Pole*>>);
 };
+
+#endif

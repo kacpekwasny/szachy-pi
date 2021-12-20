@@ -1,3 +1,6 @@
+#ifndef PLANSZA_HPP_GUARD
+#define PLANSZA_HPP_GUARD
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -49,3 +52,5 @@ class Plansza {
     // void render(); -> przeniesione do `class Interfejs`
     // void setText(); -> przeniesione do `class Interfejs`
 };
+
+#endif

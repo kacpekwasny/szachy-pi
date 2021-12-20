@@ -7,3 +7,5 @@
 *idea*
 cmake-build-debug
 .vscode
+.vs
+out

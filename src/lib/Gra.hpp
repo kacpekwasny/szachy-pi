@@ -2,6 +2,8 @@
     Gra.hpp
     Kacper Kwaśny 19.12.2021
 */
+#ifndef GRA_HPP_GUARD
+#define GRA_HPP_GUARD // to jest po to zeby nie powtarzaly sie include itp.
 
 #include <string>
 #include <vector>
@@ -89,3 +91,5 @@ class Gra {
     const std::vector<typyPionkaEnum> jakiePionkiSaDoWyboru();
     void wybierzNowyPionek(typyPionkaEnum);
 };
+
+#endif

@@ -4,6 +4,9 @@
 
     W celu uporządkowania zadań, pomiędzy clasami:
 */
+#ifndef INTERFEJS_HPP_GUARD
+#define INTERFEJS_HPP_GUARD
+
 #include <string>
 
 #include "Gra.hpp"
@@ -29,3 +32,5 @@ class Interfejs {
     void glownaPetla();
     void render();
 };
+
+#endif
