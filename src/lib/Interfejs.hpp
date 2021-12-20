@@ -5,6 +5,9 @@
     W celu uporządkowania zadań, pomiędzy clasami:
 */
 #include <string>
+#include <windows.h>
+#include <iomanip>
+#include <iostream>
 
 #include "Plansza.hpp"
 
@@ -26,4 +29,5 @@ class Interfejs {
     // input, rysowanie, output
     void glownaPetla();
     void render();
+    void startProgram();
 };
