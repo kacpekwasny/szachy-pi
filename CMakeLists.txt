@@ -1,7 +1,6 @@
-cmake_minimum_required (VERSION 2.9 )
-#set(CMAKE_LEGACY_CYGWIN_WIN32 0)
+cmake_minimum_required(VERSION 3.21)
+project(test1)
 
-project(pi_2021_1440_3 )
+set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(src)
-add_subdirectory(src/lib)
+add_executable(test1 main.cpp)

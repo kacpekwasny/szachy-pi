@@ -8,9 +8,14 @@
 #define INTERFEJS_HPP_GUARD
 
 #include <string>
+#include <windows.h>
+#include <iomanip>
+#include <iostream>
+
 
 #include "Gra.hpp"
-#include "Plansza.hpp"
+#include "def_typow.hpp"
+
 
 class Interfejs {
    private:
@@ -26,11 +31,12 @@ class Interfejs {
         for (auto p : gra->wezPlansze()->pionki) {
         }
     }
-
+    bool isKomenda(std::string);
+    Input tlumaczKomende(std::string);
    public:
+    void StartGry();
     // input, rysowanie, output
-    void glownaPetla();
     void render();
+    void help();
 };
-
 #endif

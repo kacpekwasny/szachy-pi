@@ -8,43 +8,47 @@
 #include <string>
 #include <vector>
 
-#include "Plansza.hpp"
+#include "plansza.hpp"
 #include "pion_pole.hpp"
 
-enum ruchZwrotneStany { OK, POLE_PIONKA_PUSTE, POLE_DOCELOWE_ZAJETE, RUCH_NIEDOZWOLONY_DLA_PIONKA, WYBIERZ_NOWY_PIONEK };
+enum ruchZwrotneStany {
+    OK, POLE_PIONKA_PUSTE, POLE_DOCELOWE_ZAJETE, RUCH_NIEDOZWOLONY_DLA_PIONKA, WYBIERZ_NOWY_PIONEK, DROGA_ZAJETA,
+    ZLE_POLE_PIONKA, ZLE_POLE_DOCELOWE
+};
 
 enum zachowaniaPoDojscuPionkaNaKoniecEnum {
     NA_POCZATEK,   // Pionek wraca na poczatek planszy
     DOWOLNY_TYP,   // Pionek do dojsciu na koniec planszy mozna zmiany na dowolny typ
     ZBITY_PIONEK,  // pionek po dojsciu na koniec planszy mozna zmienic jedynie na jeden z wczesniej zbitych pionkow,
-                   // `if (bialeICzarne)` to wtedy mozna wybrac tyle ze zbitego o tym samym kolorze
+    // `if (bialeICzarne)` to wtedy mozna wybrac tyle ze zbitego o tym samym kolorze
 };
 
 class Gra {
-   private:
+private:
     // config gry
-    bool bialeICzarne = false;
+    bool bialeICzarne;
     bool ruchBialych = true;  // if (bialeICzarne) to co ruch zmieniaj wartosc na przeciwna (ruchBialych = !ruchBialych)
-    bool zbijanieWlaczone = false;
+    bool zbijanieWlaczone;
     zachowaniaPoDojscuPionkaNaKoniecEnum zachowaniaPoDojscuPionkaNaKoniec;
 
     // Jezeli zachowanie
-    Pion* pionekDoZmianyTypu;
+    Pion *pionekDoZmianyTypu;
 
     kp rozmiarPlanszyWiersze;
     kp rozmiarPlanszyKolumny;
 
-    Plansza* plansza;
+    Plansza *plansza;
 
-    // TODO
     // funkcja majaca byc wykonywana po kadzym ruchu, na razie jedyna funkcjonalnosc to przeniesienie pionka na poczatek planszy
     void poWykonanymRuchu();
 
     // funkcja jest prywatna poniewaz zeby dzialala, to musi byc kilka rzeczy spelnionych
     void zapelnijPlanszeRegulaminowo() { plansza->zapelnijPlanszeRegulaminowo(); }
 
-   public:
-    // TODO
+    // poWykonanymRuchu() wywola pionekNaKoncu(), jezeli znajdzie taki pionek
+    void pionekNaKoncu(Pion*);
+
+public:
     // ustaw zasady gry, czy sa dwa kolory, czy mozna zbijac, co sie dzieje z pionkiem, ktory dojdzie do konca planszy
     void ustawConfigGry(zachowaniaPoDojscuPionkaNaKoniecEnum, bool bialeICzarne, bool zbijanieWlaczone);
 
@@ -63,22 +67,23 @@ class Gra {
 
     // rozmiesc pionki przypadkowo
     // przykladowy argument to np.: {'R', 'R', 'G', 'P', 'P', 'P', 'P', 'S'}
-    bool zapelnijPlanszeLosowo(std::vector<char> pionkiDoUtworzenia) { return plansza->zapelnijPlanszeLosowo(pionkiDoUtworzenia); };
+    bool zapelnijPlanszeLosowo(std::vector<char> pionkiDoUtworzenia) {
+        return plansza->zapelnijPlanszeLosowo(pionkiDoUtworzenia);
+    };
 
     // const jest tu specjalnie, zeby nie mozna bylo w zaden nieprzewidziany sposob wplywac na pola i pionki
     // jezeli chcemy je modyfikowac to nalezy napisac funkcje do tego celu przeznaczone
     // wtedy bedziemy wiedzieli co sie dzieje z pionkami i funkcjonalnosci beda bardziej przejrzyste
-    const std::vector<std::vector<Pole*>> wezPola() { return plansza->wezPola(); };
-    const std::vector<Pion*> wezPionki() { return plansza->wezPionki(); };
+    const std::vector<std::vector<Pole *>> wezPola() { return plansza->wezPola(); };
 
-    // TODO
+    const std::vector<Pion *> wezPionki() { return plansza->wezPionki(); };
+
     // ruch nie zaklada niczego o wejsciu które dostaje
     // jezeli pionek doszedl na koniec i funkcja ma zwrocic WYBIERZ_NOWY_PIONEK, to wczesniej ten pionek ktorym sie ruszono zostaje zapisany
     // w polu Gra.pionekDoZmianyTypu
     // pole bool ruchBialych ma
     ruchZwrotneStany ruch(kp wierszPionka, kp kolumnaPionka, kp wierszDocelowy, kp kolumnaDocelowa);
 
-    // TODO
     // trzeba jakąś logikę wymyślić.
     // Generalnie ma to działąć tak:
     // Interfejs wywołuje gra.ruch(...) -> zwraca: WYBIERZ_NOWY_PIONEK
@@ -89,6 +94,7 @@ class Gra {
     // mu typ wybierzNowyPionek() wie o który pionek chodzi poniewaz gra.ruch(...) zapisala pod zmienna Gra.pionekDoZmianyTypu pionek, który wlasnie
     // doszedl do konca planszy.
     const std::vector<typyPionkaEnum> jakiePionkiSaDoWyboru();
+
     void wybierzNowyPionek(typyPionkaEnum);
 };
 

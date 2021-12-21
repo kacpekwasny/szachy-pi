@@ -1,4 +1,14 @@
 //
-// Created by jarek on 17.12.2021.
+// Created by mateusz on 20.12.2021.
 //
-#include "Plansza.hpp"
+
+#include <iostream>
+#include "Interfejs.hpp"
+
+int main() {
+
+    Interfejs::StartGry;
+
+return 0;
+}
+

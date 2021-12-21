@@ -7,20 +7,25 @@
 
 #include "def_typow.hpp"
 
+// Bo inaczej class Pole sie pruje, ze Pion nie istnieje
+class Pion;
+
 // Pole przesuniete do tego pliku bo byla petla include
 class Pole {
-   public:
+public:
     bool jestZajete = false;
     bool jestBiale = false;
-    Pion* pionek;
+    Pion *pionek;
     kp wiersz_;
     kp kolumna_;
 
     Pole(kp wiersz, kp kolumna, bool jestBiale);
+
+    void zdejmijPionekZPola(bool pionekZbity);
 };
 
 class Pion {
-   private:
+private:
     typyPionkaEnum typPionka;
 
     // koordynaty pionka, oczywiscie plansza przechowuje go w nested array
@@ -37,10 +42,6 @@ class Pion {
     // this->pole->kolumna_
 
     // na jakim pol
-    Pole* pole;
-
-    bool zbity = false;
-    bool jestBialy = true;
 
     /*
         Jeden komentarz do wszystkich poniższych funkcji:
@@ -49,19 +50,39 @@ class Pion {
     */
     // DONE
     bool ruchPionkiemDozwolony(kp wiersz, kp kolumna);
+
     bool ruchKrolemDozwolony(kp wiersz, kp kolumna);
+
     bool ruchSkoczkiemDozwolony(kp wiersz, kp kolumna);
+
     bool ruchWiezaDozwolony(kp wiersz, kp kolumna);
+
     bool ruchKrolowaDozwolony(kp wiersz, kp kolumna);
+
     bool ruchGoncemDozwolony(kp wiersz, kp kolumna);
 
-   public:
+    // DONE
+    bool naDrodzeGonca(kp wiersz, kp kolumna, const std::vector<std::vector<Pole *>>);
+
+    bool naDrodzeKrolowej(kp wiersz, kp kolumna, const std::vector<std::vector<Pole *>>);
+
+    bool naDrodzeWiezy(kp wiersz, kp kolumna, const std::vector<std::vector<Pole *>>);
+
+
+public:
+    Pole *pole;
+    bool jestBialy = true;
+    bool zbity = false;
+
     Pion(bool jestBialy, typyPionkaEnum typ);
-    bool ustawZbity(bool zbity);
 
     // DONE
     bool ruchDozwolony(kp wiersz, kp kolumna);
-    void ustawPionekNaPolu(Pole* p);
+
+    // pola pomiedzy pionkiem, a polem docelowym sa puste
+    bool drogaPionkaWolna(kp wiersz, kp kolumna, const std::vector<std::vector<Pole *>>);
+
+    void ustawPionekNaPolu(Pole *p);
 
     // DONE 2
     // H-Krolowa
@@ -71,6 +92,7 @@ class Pion {
     // K-Krol
     // P-Pionek
     char wezLitere();
+
     // H-Krolowa
     // G-Goniec
     // S-Skoczek
@@ -78,9 +100,12 @@ class Pion {
     // K-Krol
     // P-Pionek
     bool ustawTypPionkaPoLiterze(char);
+
     void ustawTypPionka(typyPionkaEnum t) { typPionka = t; };
 
-    bool naDrodzeGonca(kp wiersz, kp kolumna, const std::vector<std::vector<Pole*>>);
+    typyPionkaEnum wezTypPionka() { return typPionka; }
+
+
 };
 
 #endif

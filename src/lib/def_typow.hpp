@@ -19,7 +19,22 @@ niepoprawny typ do tego przeznaczenia to wystarczy, że tutaj zmienie.
 #ifndef DEF_TYPOW_HPP_GUARD
 #define DEF_TYPOW_HPP_GUARD
 
-typedef unsigned int kp;
-enum typyPionkaEnum { PIONEK, SKOCZEK, WIEZA, GONIEC, KROL, KROLOWA };
+typedef int kp;
+enum typyPionkaEnum { KROL,KROLOWA, WIEZA, GONIEC,SKOCZEK, PIONEK };
+/**
+ * typy pionków przeniesione tam gdzie powinny być typy
+ * potrzebuje zmienić kolejność z tej na nową
+ * (stara kolejność PIONEK, SKOCZEK, WIEZA, GONIEC, KROL, KROLOWA)
+ */
+
+//tłumaczenie komend na wejsciu
+struct Input{
+    int x;
+    int y;
+    bool isKnownStart;
+    int X;
+    int Y;
+    char name;
+};
 
 #endif
