@@ -3,25 +3,30 @@
 //
 #include "plansza.hpp"
 
-#include <random>
 #include <vector>
 
 #include "def_typow.hpp"
 #include "pion_pole.hpp"
 
-void Plansza::ustawPlansze(kp iloscWierszy, kp iloscKolumn) {
-    this->iloscWierszy = iloscWierszy;
-    this->iloscKolumn = iloscKolumn;
+void Plansza::ustawPlansze(kp iloscWierszy_, kp iloscKolumn_) {
+    this->iloscWierszy = iloscWierszy_;
+    this->iloscKolumn = iloscKolumn_;
 
-    // czy tu bedzie memory leak? Nie używamy 'new' nigdzie
+    // juz uzywamy `new`, wiec poprzez petle deletuje wszystkie pola
+    for (auto wiersz: this->pola) {
+        for (auto pole: wiersz) {
+            delete pole;
+        }
+    }
     this->pola.clear();
+
 
     // inicjalizacja pol (planszy de fakto)
     bool poleBiale = false;
-    for (kp w = 0; w < iloscWierszy; w++) {
+    for (kp w = 0; w < iloscWierszy_; w++) {
         std::vector<Pole *> wiersz;
-        for (kp k = 0; k < iloscKolumn; k++) {
-            Pole *p = &Pole(w, k, poleBiale);
+        for (kp k = 0; k < iloscKolumn_; k++) {
+            Pole *p = new Pole(w, k, poleBiale);
             poleBiale = !poleBiale;
             wiersz.push_back(p);
         }
@@ -31,9 +36,9 @@ void Plansza::ustawPlansze(kp iloscWierszy, kp iloscKolumn) {
 
 void Plansza::zdejmijPionkiZPlanszy() {
     // wiersze w planszy
-    for (auto wiersz : this->pola) {
+    for (auto wiersz: this->pola) {
         // pola w wierszu
-        for (auto pole : wiersz) {
+        for (auto pole: wiersz) {
             pole->jestZajete = false;
             pole->pionek->zbity = true;
         }
@@ -41,11 +46,14 @@ void Plansza::zdejmijPionkiZPlanszy() {
 }
 
 void Plansza::usunWszystkiePionki() {
-    this->pionki.clear();
+    // this->pionki.clear(); // - teraz uzywamy `new` wiec nie mozna tego robic tak
+    for (auto p: this->pionki) {
+        delete p;
+    }
     // wiersze w planszy
-    for (auto wiersz : this->pola) {
+    for (auto wiersz: this->pola) {
         // pola w wierszu
-        for (auto pole : wiersz) {
+        for (auto pole: wiersz) {
             pole->jestZajete = false;
         }
     }
@@ -56,8 +64,8 @@ bool Plansza::zapelnijPlanszeLosowo(std::vector<char> pionkiDoUtworzenia) {
         // Jezeli pionkow jest wiecej niz (ilosc pol - 2)
         return false;
     }
-    for (auto typPionkaChar : pionkiDoUtworzenia) {
-        Pion *pionek = &Pion(true, PIONEK);
+    for (auto typPionkaChar: pionkiDoUtworzenia) {
+        Pion *pionek = new Pion(true, PIONEK);
         pionek->ustawTypPionkaPoLiterze(typPionkaChar);
         kp wiersz;
         kp kolumna;
@@ -69,80 +77,113 @@ bool Plansza::zapelnijPlanszeLosowo(std::vector<char> pionkiDoUtworzenia) {
         } while (pole->jestZajete);
         pole->pionek = pionek;
         pionek->ustawPionekNaPolu(pole);
+        this->pionki.push_back(pionek);
     }
     return true;
 }
+
+void Plansza::zamienPionekZeZbitym(Pion *p, typyPionkaEnum typPionka) {
+
+    for (auto pZbity: this->pionki) {
+        if (pZbity->jestBialy == p->jestBialy
+            && pZbity->wezTypPionka() == typPionka) {
+            pZbity->ustawTypPionka(p->wezTypPionka());
+            p->ustawTypPionka(typPionka);
+            return;
+        }
+    }
+}
+
 
 void Plansza::zapelnijPlanszeRegulaminowo() {
     // plansza jest odpowiedniej wielkosci
     // zapelnij pionkami
     for (kp kolumna = 0; kolumna < 8; ++kolumna) {
-        Pion *pionB = &Pion(true, PIONEK);           // pion bialy
-        Pion *pionC = &Pion(false, PIONEK);          // pion czarny
+        Pion *pionB = new Pion(true, PIONEK);           // pion bialy
+        Pion *pionC = new Pion(false, PIONEK);          // pion czarny
         Pole *poleB = this->pola.at(1).at(kolumna);  // pole dla bialego
         Pole *poleC = this->pola.at(6).at(kolumna);  // pole dla czarnego
         pionB->ustawPionekNaPolu(poleB);             // parujemy pole-pionek
         pionC->ustawPionekNaPolu(poleC);             // parujemy pole-pionek
+        this->pionki.push_back(pionB);
+        this->pionki.push_back(pionC);
     }
 
     // Krol
-    Pion *pionB = &Pion(true, KROL);       // pion bialy
-    Pion *pionC = &Pion(false, KROL);      // pion czarny
+    Pion *pionB = new Pion(true, KROL);       // pion bialy
+    Pion *pionC = new Pion(false, KROL);      // pion czarny
     Pole *poleB = this->pola.at(0).at(4);  // pole dla bialego
     Pole *poleC = this->pola.at(7).at(3);  // pole dla czarnego
     pionB->ustawPionekNaPolu(poleB);       // parujemy pole-pionek
     pionC->ustawPionekNaPolu(poleC);       // parujemy pole-pionek
+    this->pionki.push_back(pionB);
+    this->pionki.push_back(pionC);
+
 
     // Krolowa
-    pionB = &Pion(true, KROLOWA);     // pion bialy
-    pionC = &Pion(false, KROLOWA);    // pion czarny
+    pionB = new Pion(true, KROLOWA);     // pion bialy
+    pionC = new Pion(false, KROLOWA);    // pion czarny
     poleB = this->pola.at(0).at(3);   // pole dla bialego
     poleC = this->pola.at(7).at(4);   // pole dla czarnego
     pionB->ustawPionekNaPolu(poleB);  // parujemy pole-pionek
     pionC->ustawPionekNaPolu(poleC);  // parujemy pole-pionek
+    this->pionki.push_back(pionB);
+    this->pionki.push_back(pionC);
 
     // Gonce po prawej
-    pionB = &Pion(true, GONIEC);      // pion bialy
-    pionC = &Pion(false, GONIEC);     // pion czarny
+    pionB = new Pion(true, GONIEC);      // pion bialy
+    pionC = new Pion(false, GONIEC);     // pion czarny
     poleB = this->pola.at(0).at(5);   // pole dla bialego
     poleC = this->pola.at(7).at(5);   // pole dla czarnego
     pionB->ustawPionekNaPolu(poleB);  // parujemy pole-pionek
     pionC->ustawPionekNaPolu(poleC);  // parujemy pole-pionek
+    this->pionki.push_back(pionB);
+    this->pionki.push_back(pionC);
     // Gonce po lewej
-    pionB = &Pion(true, GONIEC);      // pion bialy
-    pionC = &Pion(false, GONIEC);     // pion czarny
+    pionB = new Pion(true, GONIEC);      // pion bialy
+    pionC = new Pion(false, GONIEC);     // pion czarny
     poleB = this->pola.at(0).at(2);   // pole dla bialego
     poleC = this->pola.at(7).at(2);   // pole dla czarnego
     pionB->ustawPionekNaPolu(poleB);  // parujemy pole-pionek
     pionC->ustawPionekNaPolu(poleC);  // parujemy pole-pionek
+    this->pionki.push_back(pionB);
+    this->pionki.push_back(pionC);
 
     // Skoczek po prawej
-    pionB = &Pion(true, SKOCZEK);     // pion bialy
-    pionC = &Pion(false, SKOCZEK);    // pion czarny
+    pionB = new Pion(true, SKOCZEK);     // pion bialy
+    pionC = new Pion(false, SKOCZEK);    // pion czarny
     poleB = this->pola.at(0).at(6);   // pole dla bialego
     poleC = this->pola.at(7).at(6);   // pole dla czarnego
     pionB->ustawPionekNaPolu(poleB);  // parujemy pole-pionek
     pionC->ustawPionekNaPolu(poleC);  // parujemy pole-pionek
+    this->pionki.push_back(pionB);
+    this->pionki.push_back(pionC);
     // Skoczek po lewej
-    pionB = &Pion(true, SKOCZEK);     // pion bialy
-    pionC = &Pion(false, SKOCZEK);    // pion czarny
+    pionB = new Pion(true, SKOCZEK);     // pion bialy
+    pionC = new Pion(false, SKOCZEK);    // pion czarny
     poleB = this->pola.at(0).at(1);   // pole dla bialego
     poleC = this->pola.at(7).at(1);   // pole dla czarnego
     pionB->ustawPionekNaPolu(poleB);  // parujemy pole-pionek
     pionC->ustawPionekNaPolu(poleC);  // parujemy pole-pionek
+    this->pionki.push_back(pionB);
+    this->pionki.push_back(pionC);
 
     // Wieza po prawej
-    pionB = &Pion(true, WIEZA);       // pion bialy
-    pionC = &Pion(false, WIEZA);      // pion czarny
+    pionB = new Pion(true, WIEZA);       // pion bialy
+    pionC = new Pion(false, WIEZA);      // pion czarny
     poleB = this->pola.at(0).at(7);   // pole dla bialego
     poleC = this->pola.at(7).at(7);   // pole dla czarnego
     pionB->ustawPionekNaPolu(poleB);  // parujemy pole-pionek
     pionC->ustawPionekNaPolu(poleC);  // parujemy pole-pionek
+    this->pionki.push_back(pionB);
+    this->pionki.push_back(pionC);
     // Wieza po lewej
-    pionB = &Pion(true, WIEZA);       // pion bialy
-    pionC = &Pion(false, WIEZA);      // pion czarny
+    pionB = new Pion(true, WIEZA);       // pion bialy
+    pionC = new Pion(false, WIEZA);      // pion czarny
     poleB = this->pola.at(0).at(7);   // pole dla bialego
     poleC = this->pola.at(7).at(7);   // pole dla czarnego
     pionB->ustawPionekNaPolu(poleB);  // parujemy pole-pionek
     pionC->ustawPionekNaPolu(poleC);  // parujemy pole-pionek
+    this->pionki.push_back(pionB);
+    this->pionki.push_back(pionC);
 }

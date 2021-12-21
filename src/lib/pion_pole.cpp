@@ -4,7 +4,6 @@
 #include "pion_pole.hpp"
 
 #include <cmath>
-#include <iostream>
 
 #include "def_typow.hpp"
 

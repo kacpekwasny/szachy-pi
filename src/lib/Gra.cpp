@@ -23,6 +23,8 @@ void Gra::poWykonanymRuchu() {
             break;
         }
     }
+
+    this->ruchBialych = !this->ruchBialych;
 }
 
 void Gra::pionekNaKoncu(Pion *p) {
@@ -56,10 +58,9 @@ void Gra::ustawKlasycznyTrybGry() {
     this->zapelnijPlanszeRegulaminowo();
 }
 
-// TODO
 ruchZwrotneStany Gra::ruch(kp wierszPionka, kp kolumnaPionka, kp wierszDocelowy, kp kolumnaDocelowa) {
     if (!(0 <= wierszDocelowy && wierszDocelowy < this->rozmiarPlanszyWiersze
-        && 0 <= kolumnaDocelowa && kolumnaDocelowa < this->rozmiarPlanszyKolumny)) {
+          && 0 <= kolumnaDocelowa && kolumnaDocelowa < this->rozmiarPlanszyKolumny)) {
         // Pole docelowe nie jest na planszy
         return ZLE_POLE_DOCELOWE;
     }
@@ -73,7 +74,7 @@ ruchZwrotneStany Gra::ruch(kp wierszPionka, kp kolumnaPionka, kp wierszDocelowy,
     }
 
     // jezeli gra jest na bialeICzarne a uzytkownik probuje ruszyc sie nie swoim pionkiem
-    if (this->bialeICzarne && this->ruchBialych != polePionka->pionek->jestBialy) {
+    if (this->bialeICzarne && (this->ruchBialych != polePionka->pionek->jestBialy)) {
         return ZLE_POLE_PIONKA;
     }
 
@@ -140,7 +141,10 @@ const std::vector<typyPionkaEnum> Gra::jakiePionkiSaDoWyboru() {
         case ZBITY_PIONEK:
             std::map<typyPionkaEnum, bool> zbitePionkiMap;
             for (auto p: this->wezPionki()) {
-                if (p->zbity)
+                // !this->ruchBialych - wartosc zanegowana poniewaz funkcja poWykonanymRuchu()
+                // ustawila ja na przeciwna dla kolejnego ruchu, ale my potrzebujemy wartosci z poprzedniego
+                // ruchu. Dlatego ja negujemy.
+                if (this->bialeICzarne ? p->jestBialy == (!this->ruchBialych) : p->zbity)
                     zbitePionkiMap.insert(std::pair<typyPionkaEnum, bool>(p->wezTypPionka(), true));
             }
             std::map<typyPionkaEnum, bool>::iterator it;
@@ -151,8 +155,18 @@ const std::vector<typyPionkaEnum> Gra::jakiePionkiSaDoWyboru() {
     }
 }
 
-// TODO
-void Gra::wybierzNowyPionek(typyPionkaEnum) {
-    this->pionekDoZmianyTypu
+void Gra::wybierzNowyPionek(typyPionkaEnum typPionka) {
+    switch (this->zachowaniaPoDojscuPionkaNaKoniec) {
+        case ZBITY_PIONEK:
+            this->plansza->zamienPionekZeZbitym(this->pionekDoZmianyTypu, typPionka);
+            return;
+        case DOWOLNY_TYP:
+            this->pionekDoZmianyTypu->ustawTypPionka(typPionka);
+            return;
+        default:
+            // do tego nie dojdzie, poniewaz ostatnia wartosc, czyli NA_POCZATEK
+            // nie wlacza tej funkcji
+            return;
+    }
 }
 
