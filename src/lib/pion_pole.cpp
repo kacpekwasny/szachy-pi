@@ -80,6 +80,13 @@ bool Pion::ruchGoncemDozwolony(kp wiersz, kp kolumna) {
     return false;
 }
 
+bool Pion::ruchKrolemDozwolony(kp wiersz, kp kolumna) {
+    if(abs(this->pole->kolumna_-kolumna)>1 || abs(this->pole->wiersz_-wiersz)>1){
+        return true;
+    }
+    return false;
+}
+
 bool Pion::ruchKrolowaDozwolony(kp wiersz, kp kolumna) {
     if (abs(this->pole->kolumna_ - kolumna) == abs(this->pole->wiersz_ - wiersz)) {
         return true;
