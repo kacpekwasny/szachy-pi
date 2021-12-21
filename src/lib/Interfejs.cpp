@@ -220,8 +220,8 @@ void Interfejs::StartGry() {
         try {
             std::cin >> s;
             setText(s);
-        }catch (std::exception
-        e){
+        } catch (std::exception
+                 e) {
             break;
         }
     }
