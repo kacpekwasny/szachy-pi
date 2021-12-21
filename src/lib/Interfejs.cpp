@@ -211,13 +211,20 @@ void Interfejs::setText(std::string text) {
 }
 
 void Interfejs::StartGry() {
-    gra = new Gra;
-    gra->ustawKlasycznyTrybGry();
+    std::cerr<<"work\n";
+    gra = new Gra();
+    //gra->ustawKlasycznyTrybGry();
+    gra->ustawPlansze(8,8);
+    gra->ustawConfigGry(NA_POCZATEK,false,false);
+    gra->zapelnijPlanszeLosowo({KROL,PIONEK,SKOCZEK,WIEZA});
     render();
+    std::cerr<<"work\n";
     help();
     std::string s;
     for (;;) {
+        std::cerr<<"work\n";
         try {
+            std::cerr<<"work\n";
             std::cin >> s;
             setText(s);
         } catch (std::exception

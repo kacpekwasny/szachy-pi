@@ -6,7 +6,7 @@
 #include "Interfejs.hpp"
 
 int main() {
-    Interfejs i =Interfejs();
+    Interfejs i;
     i.StartGry();
 
 return 0;
