@@ -28,8 +28,10 @@ class Interfejs {
 
     std::string polaZPionkami() {
         std::string pola = "";
-        for (auto p : gra->wezPlansze()->pionki) {
+        for (auto p : gra->wezPionki()) {
+            pola+=p->wezLitere()+" ";
         }
+        return 0;
     }
     bool isKomenda(std::string);
     Input tlumaczKomende(std::string);
