@@ -46,7 +46,10 @@ private:
     void zapelnijPlanszeRegulaminowo() { plansza->zapelnijPlanszeRegulaminowo(); }
 
     // poWykonanymRuchu() wywola pionekNaKoncu(), jezeli znajdzie taki pionek
-    void pionekNaKoncu(Pion*);
+    void pionekNaKoncu(Pion *);
+
+    bool ruchZwrocWybierzPionek = false; // pionekNaKoncu() ustawi ruchZwrocWybierzPionek = true
+    // kiedy wykryje, ze pionek doszedl na koniec planszy, a tryb gry wymaga by uzytkownik wybral nowy pionek
 
 public:
     // ustaw zasady gry, czy sa dwa kolory, czy mozna zbijac, co sie dzieje z pionkiem, ktory dojdzie do konca planszy

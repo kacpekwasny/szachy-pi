@@ -25,15 +25,22 @@ void Gra::poWykonanymRuchu() {
     }
 }
 
-ruchZwrotneStany Gra::pionekNaKoncu(Pion *p) {
+void Gra::pionekNaKoncu(Pion *p) {
     switch (this->zachowaniaPoDojscuPionkaNaKoniec) {
         case NA_POCZATEK:
             p->pole->zdejmijPionekZPola(false);
-            // wroc na odpowiednia strone w tej samej kolumnie
+            // ustaw pionek po drugiej stronie planszy w tej samej kolummnie
             p->ustawPionekNaPolu(this->wezPola()[p->pole->wiersz_ == 0 ? 7 : 0][p->pole->kolumna_]);
+            return;
+        case DOWOLNY_TYP:
+            this->pionekDoZmianyTypu = p;
+            this->ruchZwrocWybierzPionek = true;
+            return;
+        case ZBITY_PIONEK:
+            this->pionekDoZmianyTypu = p;
+            this->ruchZwrocWybierzPionek = true;
+            return;
     }
-    this->pionekDoZmianyTypu = p;
-
 }
 
 void Gra::ustawConfigGry(zachowaniaPoDojscuPionkaNaKoniecEnum z, bool bialeICzarne, bool zbijanieWlaczone) {
@@ -65,12 +72,17 @@ ruchZwrotneStany Gra::ruch(kp wierszPionka, kp kolumnaPionka, kp wierszDocelowy,
         return POLE_PIONKA_PUSTE;
     }
 
-    // jezeli gra jest na bialeICzarne
+    // jezeli gra jest na bialeICzarne a uzytkownik probuje ruszyc sie nie swoim pionkiem
     if (this->bialeICzarne && this->ruchBialych != polePionka->pionek->jestBialy) {
         return ZLE_POLE_PIONKA;
     }
 
-    // czy dany typ pionka moze ruszyc sie na tamto pole
+    // jezeli taki ruch NIE jest dozwolony dla pionka
+    if (!polePionka->pionek->ruchDozwolony(wierszPionka, kolumnaPionka)) {
+        return ZLE_POLE_DOCELOWE;
+    }
+
+    // czy droga ruchu dla danego pionka NIE jest wolna
     if (!polePionka->pionek->drogaPionkaWolna(wierszDocelowy, kolumnaDocelowa, this->wezPola())) {
         return DROGA_ZAJETA;
     }
@@ -92,13 +104,22 @@ ruchZwrotneStany Gra::ruch(kp wierszPionka, kp kolumnaPionka, kp wierszDocelowy,
             poleDocelowe->zdejmijPionekZPola(true);
             polePionka->zdejmijPionekZPola(false);
             polePionka->pionek->ustawPionekNaPolu(poleDocelowe);
-
+            this->poWykonanymRuchu();
+            if (this->ruchZwrocWybierzPionek) {
+                this->ruchZwrocWybierzPionek = false;
+                return WYBIERZ_NOWY_PIONEK;
+            }
             return OK;
         }
         return POLE_DOCELOWE_ZAJETE;
     }
+    // pole docelowe jest puste, droga wolna, ruch dozwolony
 
-    // pole docelowe jest puste, droga wolna
+    this->poWykonanymRuchu();
+    if (this->ruchZwrocWybierzPionek) {
+        this->ruchZwrocWybierzPionek = false;
+        return WYBIERZ_NOWY_PIONEK;
+    }
     return OK;
 }
 
