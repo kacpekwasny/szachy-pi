@@ -52,7 +52,7 @@ class Plansza {
     // Wez pionek 'p' i zamien miejscami z pionkiem zbitym tego samego koloru o sprecyzowanym typie.
     void zamienPionekZeZbitym(Pion* p, typyPionkaEnum);
     // void render(); -> przeniesione do `class Interfejs`
-    // void setText(); -> przeniesione do `class Interfejs`
+    // void przyjmijWejscieUzytkownika(); -> przeniesione do `class Interfejs`
 };
 
 #endif

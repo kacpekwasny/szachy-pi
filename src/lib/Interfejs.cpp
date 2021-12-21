@@ -5,31 +5,37 @@
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-//wewneczna funkcja
-int tlumaczDoRender(typyPionkaEnum *a) {
-    if (KROL == *a) return 0;
-    if (KROLOWA == *a) return 1;
-    if (WIEZA == *a) return 2;
-    if (GONIEC == *a) return 3;
-    if (SKOCZEK == *a) return 4;
-    if (PIONEK == *a) return 5;
+// wewnetrzna funkcja
+int tlumaczDoRender(typyPionkaEnum typ) {
+    std::cout << typ << '\n';
+    if (KROL == typ) return 0;
+    if (KROLOWA == typ) return 1;
+    if (WIEZA == typ) return 2;
+    if (GONIEC == typ) return 3;
+    if (SKOCZEK == typ) return 4;
+    if (PIONEK == typ) return 5;
     return -100;
 }
 
 void Interfejs::render() {
     static const std::string bierki[] = {"\u2654", "\u2655", "\u2656", "\u2657", "\u2658", "\u2659",
                                          "\u265a", "\u265B", "\u265C", "\u265D", "\u265E", "\u265F"};
-    for (std::string s: bierki) {
-        std::cout << s;
-    }
+    // for (std::string s: bierki) {
+    //     std::cout << s;
+    // }
     auto plansza = gra->wezPola();
     std::cout << "\n\t\t\tA\tB \tC \tD \tE \tF \tG \tH\n"
               << "\n";
     for (int i = 0; i < 8; i++) {
         std::cout << "\t" << i + 1 << "\t\t";
         for (int j = 0; j < 8; j++) {
-            std::cout << (plansza[i][j]->jestZajete ? bierki[tlumaczDoRender(
-                    (typyPionkaEnum *) (plansza[i][j]->pionek))] + "\t" : ".\t");
+            // nie wiem o co chodzilo, z tym (typyPionkowEnum *) ...
+            // (to bylo rzutowanie typow??)
+            Pole *pole = plansza[i][j];
+            std::cout << (pole->jestZajete ?
+                          bierki[tlumaczDoRender(pole->pionek->wezTypPionka())] + "\t"
+                                           : ".\t"
+            );
         }
         std::cout << "\t" << i + 1;
         std::cout << std::endl;
@@ -38,7 +44,7 @@ void Interfejs::render() {
               << "\t\t\tA \tB \tC \tD \tE \tF \tG \tH\n";
 }
 
-bool Interfejs::isKomenda(std::string s) {
+bool Interfejs::wejscieToRuch(std::string s) {
     std::cmatch k;
     if (s.size() > 5 || s.size() < 4) return false;
     if (std::regex_match(s.begin(), s.end(),//d2d4
@@ -48,7 +54,7 @@ bool Interfejs::isKomenda(std::string s) {
     return false;
 }
 
-Input Interfejs::tlumaczKomende(std::string inp) {
+Input Interfejs::tlumaczWejscieRuch(std::string inp) {
     Input i;
     if (inp.size() == 4) {
         i.x = inp[0] - 'a';
@@ -100,7 +106,7 @@ void Interfejs::help() {  //zaraz po starcie programu
     system("cls");
 }
 
-void Interfejs::setText(std::string text) {
+void Interfejs::przyjmijWejscieUzytkownika(std::string text) {
 
     if ("reset" == text) {
         std::string decyzja;
@@ -115,12 +121,12 @@ void Interfejs::setText(std::string text) {
             std::cout << "Podaj pole figury, ktora chcesz sie ruszyc." << std::endl;
             std::string new_input;
             std::cin >> new_input;
-            setText(new_input);
+            przyjmijWejscieUzytkownika(new_input);
         } else {
             std::cout << "Podaj pole figury, ktora chcesz sie ruszyc." << std::endl;
             std::string new_input;
             std::cin >> new_input;
-            setText(new_input);
+            przyjmijWejscieUzytkownika(new_input);
         }
     } else if ("exit" == text) {
         system("cls");
@@ -194,8 +200,8 @@ void Interfejs::setText(std::string text) {
         gra->zapelnijPlanszeLosowo(pionkiDoUtworzenia);
         system("cls");
         render();
-    } else if (isKomenda(text)) {
-        Input wspolrzedne = tlumaczKomende(text);
+    } else if (wejscieToRuch(text)) {
+        Input wspolrzedne = tlumaczWejscieRuch(text);
         gra->ruch(wspolrzedne.x, wspolrzedne.y,
                   wspolrzedne.X, wspolrzedne.Y);
     } else {
@@ -204,7 +210,7 @@ void Interfejs::setText(std::string text) {
         std::string new_input;
         std::cin >>
                  new_input;
-        setText(new_input);
+        przyjmijWejscieUzytkownika(new_input);
     }
 }
 
@@ -226,7 +232,7 @@ void Interfejs::StartGry() {
         try {
             std::cerr << "work\n";
             std::cin >> s;
-            setText(s);
+            przyjmijWejscieUzytkownika(s);
         } catch (std::exception
                  e) {
             break;

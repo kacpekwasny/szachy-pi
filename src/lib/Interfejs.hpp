@@ -19,22 +19,16 @@
 
 class Interfejs {
    private:
-    enum chooseOrMoveEnum { choose, move };
-    chooseOrMoveEnum chooseOrMove = choose;  // zawiera informacje o przeznaczeniu kolejnego inputu
     Gra* gra;
+    // rename z setText() -> przyjmijWejscieUzytkownika(), ze wzgledu na nieopisowa nazwe
+    void przyjmijWejscieUzytkownika(std::string);
 
-    //
-    void setText(std::string);
+    // rename z isKomenda() -> wejscieToRuch(), ze wzgledu na nieopisowa nazwe
+    bool wejscieToRuch(std::string s);
 
-    std::string polaZPionkami() {
-        std::string pola = "";
-        for (auto p : gra->wezPionki()) {
-            pola+=p->wezLitere()+" ";
-        }
-        return 0;
-    }
-    bool isKomenda(std::string);
-    Input tlumaczKomende(std::string);
+    // rename z tlumaczKomenda() -> tlumaczWejscieRuch(), ze wzgledu na nieopisowa nazwe
+    Input tlumaczWejscieRuch(std::string inp);
+
    public:
     void StartGry();
     // input, rysowanie, output
