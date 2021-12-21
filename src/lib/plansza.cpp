@@ -30,7 +30,7 @@ void Plansza::ustawPlansze(kp iloscWierszy_, kp iloscKolumn_) {
             poleBiale = !poleBiale;
             wiersz.push_back(p);
         }
-        pola.push_back(wiersz);
+        this->pola.push_back(wiersz);
     }
 }
 
