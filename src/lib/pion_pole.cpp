@@ -96,12 +96,6 @@ bool Pion::ruchKrolowaDozwolony(kp wiersz, kp kolumna) {
     return false;
 }
 
-bool Pion::ruchKrolemDozwolony(kp wiersz, kp kolumna){
-    if(abs(kolumna - this->pole->kolumna_) > 1 || abs(wiersz - this->pole->wiersz_) > 1){
-        return false;
-    }
-    return true;
-}
 
 
 ok
