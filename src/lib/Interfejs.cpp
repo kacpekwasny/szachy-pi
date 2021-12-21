@@ -194,9 +194,7 @@ void Interfejs::setText(std::string text) {
         gra->zapelnijPlanszeLosowo(pionkiDoUtworzenia);
         system("cls");
         render();
-    } else if (
-            isKomenda(text)
-            ) {
+    } else if (isKomenda(text)) {
         Input wspolrzedne = tlumaczKomende(text);
         gra->ruch(wspolrzedne.x, wspolrzedne.y,
                   wspolrzedne.X, wspolrzedne.Y);
@@ -211,20 +209,22 @@ void Interfejs::setText(std::string text) {
 }
 
 void Interfejs::StartGry() {
-    std::cerr<<"work\n";
+    std::cerr << "work\n";
     gra = new Gra();
     //gra->ustawKlasycznyTrybGry();
-    gra->ustawPlansze(8,8);
-    gra->ustawConfigGry(NA_POCZATEK,false,false);
-    gra->zapelnijPlanszeLosowo({KROL,PIONEK,SKOCZEK,WIEZA});
+    gra->ustawPlansze(8, 8);
+    gra->ustawConfigGry(NA_POCZATEK, false, false);
+    // const char pionki* = {'R', 'K'};
+    // gra->zapelnijPlanszeLosowo();
+    gra->ustawKlasycznyTrybGry();
     render();
-    std::cerr<<"work\n";
+    std::cerr << "work\n";
     help();
     std::string s;
     for (;;) {
-        std::cerr<<"work\n";
+        std::cerr << "work\n";
         try {
-            std::cerr<<"work\n";
+            std::cerr << "work\n";
             std::cin >> s;
             setText(s);
         } catch (std::exception

@@ -27,8 +27,8 @@ class Plansza {
     const std::vector<Pion *> wezPionki() { return pionki; }
 
     Plansza();
-    // kasuje pola planszy
 
+    // kasuje pola planszy
     // i tworzy nowe pola planszy o wielkosci wiersze x kolumny
     void ustawPlansze(kp wiersze, kp kolumny);
 

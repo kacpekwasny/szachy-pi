@@ -52,6 +52,7 @@ private:
     // kiedy wykryje, ze pionek doszedl na koniec planszy, a tryb gry wymaga by uzytkownik wybral nowy pionek
 
 public:
+    Gra();
     // ustaw zasady gry, czy sa dwa kolory, czy mozna zbijac, co sie dzieje z pionkiem, ktory dojdzie do konca planszy
     void ustawConfigGry(zachowaniaPoDojscuPionkaNaKoniecEnum, bool bialeICzarne, bool zbijanieWlaczone);
 

@@ -3,9 +3,14 @@
     20.12.2021
 */
 #include "Gra.hpp"
+#include "plansza.hpp"
 
 #include <map>
 #include <vector>
+
+Gra::Gra() {
+    this->plansza = new Plansza();
+}
 
 void Gra::poWykonanymRuchu() {
     // 1. sprawdza, czy na wierszu o indexie 7 stoi bialy oraz czy na wierszu o indexie 0 stoi czarny pionek

@@ -8,6 +8,8 @@
 #include "def_typow.hpp"
 #include "pion_pole.hpp"
 
+Plansza::Plansza() {}
+
 void Plansza::ustawPlansze(kp iloscWierszy_, kp iloscKolumn_) {
     this->iloscWierszy = iloscWierszy_;
     this->iloscKolumn = iloscKolumn_;
