@@ -5,13 +5,14 @@
 
 HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 //wewneczna funkcja
-int tlumaczDoRender(typyPionkaEnum a){
-    if(KROL==a)     return 0;
-    if(KROLOWA==a)  return 1;
-    if(WIEZA==a)    return 2;
-    if(GONIEC==a)   return 3;
-    if(SKOCZEK==a)  return 4;
-    if(PIONEK==a)   return 5;
+int tlumaczDoRender(typyPionkaEnum *a){
+    if(KROL==*a)     return 0;
+    if(KROLOWA==*a)  return 1;
+    if(WIEZA==*a)    return 2;
+    if(GONIEC==*a)   return 3;
+    if(SKOCZEK==*a)  return 4;
+    if(PIONEK==*a)   return 5;
+    return -100;
 }
 
 void Interfejs::render() {
@@ -26,7 +27,8 @@ void Interfejs::render() {
     for (int i = 0; i < 8; i++) {
         std::cout << "\t" << i + 1 << "\t\t";
         for (int j = 0; j < 8; j++) {
-            std::cout << (plansza[i][j]->jestZajete ? bierki[tlumaczKomende(plansza[i][j]->pionek)] + "\t" : ".\t");
+            std::cout << (plansza[i][j]->jestZajete ? bierki[tlumaczDoRender(
+                    (typyPionkaEnum *)(plansza[i][j]->pionek))] + "\t" : ".\t");
         }
         std::cout << "\t" << i + 1;
         std::cout << std::endl;
@@ -81,7 +83,7 @@ void Interfejs::help() {  //zaraz po starcie programu
     SetConsoleTextAttribute(hConsole, 7); //color white
     std::cout << " - informacja o możliwych ruchach oraz krótkie wprowadzenie." << std::endl;
     SetConsoleTextAttribute(hConsole, 2); //color green
-    std::cout << "ustawienia";
+    std::cout << "settings";
     SetConsoleTextAttribute(hConsole, 7); //color white
     std::cout << " - zmien ustawienia gry." << std::endl;
     std::cout << std::endl;
@@ -142,8 +144,10 @@ void Interfejs::setText(std::string text) {
         else if ("settings" == text) {  
             system("cls");
 
-            std::cout << "Co ma sie dziac z pionkiem na koncu planszy?" << std::endl;
-            //dopisac
+            std::cout << "Co ma sie dziac z pionkiem na koncu planszy?\nznikać [1]\nzamieniac sie w dowolna figure [2]\nma zginac [3]," << std::endl;
+            int zmienna;
+            std::cin>>zmienna;
+            zachowaniaPoDojscuPionkaNaKoniecEnum a= static_cast<zachowaniaPoDojscuPionkaNaKoniecEnum>(zmienna - 1);
             std::cout << "Kolory figur: [1/2]" << std::endl;
             int kolor;
             std::cin >> kolor;
@@ -173,24 +177,32 @@ void Interfejs::setText(std::string text) {
                     gra->ustawConfigGry(a, true, false);
                 }
             }
-            
-            std::cout << "Podaj jakie figury maja sie znalezc na planszy wpisujac ich symbol: " << std::endl;
-                std::cout << "R - krolowa" << std::endl;
+
+            std::vector<char> pionkiDoUtworzenia;
+            char figura = '0';
+
+            do {
+                std::cout << "Podaj jakie figury maja sie znalezc na planszy wpisujac ich symbol: " << std::endl;
+                std::cout << "H - krolowa" << std::endl;
                 std::cout << "K - krol" << std::endl;
                 std::cout << "S - skoczek" << std::endl;
                 std::cout << "W - wieza" << std::endl;
                 std::cout << "P - pionek" << std::endl;
-                std::cout << "G - goniec" << std::endl;
+                std::cout << "G - goniec" << std::endl;                std::cout << "Zakoncz wpisywanie poprzez wpisanie [e]." << std::endl;
 
                 std::vector<char> pionkiDoUtworzenia;
-                std::cin >> pionkiDoUtworzenia;
+                std::cin >> figura;
+                if ('e' != figura) {
+                    pionkiDoUtworzenia.push_back(figura);
+                }
+            } while('e' != figura);
             gra->zapelnijPlanszeLosowo(pionkiDoUtworzenia);
-                system("cls");
+            system("cls");
                 render();
         }
         else if(isKomenda(text)){
             Input wspolrzedne = tlumaczKomende(text);
-            gra->ruch(wspolrzedne);
+            gra->ruch(wspolrzedne.x,wspolrzedne.y,wspolrzedne.X,wspolrzedne.Y);
         }
         else{
             std::cout << "Niepoprawna komenda, wpisz jeszcz raz" << std::endl;
@@ -210,7 +222,7 @@ void Interfejs::StartGry() {
         try {
             std::cin >> s;
             setText(s);
-        }catch (std::_exception_ptr::exception_ptr e){
+        }catch (std::exception e){
             break;
         }
     }

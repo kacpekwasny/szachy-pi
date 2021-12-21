@@ -6,8 +6,8 @@
 #include "Interfejs.hpp"
 
 int main() {
-
-    Interfejs::StartGry;
+    Interfejs i =Interfejs();
+    i.StartGry();
 
 return 0;
 }
