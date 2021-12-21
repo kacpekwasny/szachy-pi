@@ -98,7 +98,6 @@ bool Pion::ruchKrolowaDozwolony(kp wiersz, kp kolumna) {
 
 
 
-ok
 char Pion::wezLitere() {
     switch (this->typPionka) {
         case KROLOWA:
